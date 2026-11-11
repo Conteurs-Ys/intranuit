@@ -1,0 +1,183 @@
+rules_version = '2';
+
+// Rôles (champ `role` de artifacts/{appId}/users/{uid}/profile/info) :
+//   pending     → compte créé, en attente de validation par un admin
+//   player      → joueur validé : ne voit et n'écrit que ses propres dossiers
+//   storyteller → conteur : accès à toute la chronique
+//   admin       → conteur + gestion des comptes
+// Le rôle ne peut être modifié que par un admin.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function profilePath(appId, uid) {
+      return /databases/$(database)/documents/artifacts/$(appId)/users/$(uid)/profile/info;
+    }
+
+    function roleOf(appId) {
+      return signedIn() && exists(profilePath(appId, request.auth.uid))
+        ? get(profilePath(appId, request.auth.uid)).data.get('role', 'pending')
+        : 'none';
+    }
+
+    function isAdmin(appId) {
+      return roleOf(appId) == 'admin';
+    }
+
+    function isStaff(appId) {
+      return roleOf(appId) in ['storyteller', 'admin'];
+    }
+
+    function isMember(appId) {
+      return roleOf(appId) in ['player', 'storyteller', 'admin'];
+    }
+
+    function isSelf(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    // ── Contenu public (site vitrine) ─────────────────────────────
+    match /artifacts/{appId}/public/data/parties/{docId} {
+      allow read: if true;
+      allow write: if isStaff(appId);
+    }
+
+    match /artifacts/{appId}/public/data/annonces/{docId} {
+      allow read: if true;
+      allow write: if isStaff(appId);
+    }
+
+    // ── Cycle en cours : lu par tous les membres, piloté par les conteurs ──
+    match /artifacts/{appId}/public/data/instance_settings/{docId} {
+      allow get: if docId == 'identity';
+      allow write: if isAdmin(appId) && docId == 'identity'
+        && request.resource.data.keys().hasOnly(['city', 'chronicle'])
+        && request.resource.data.city is string && request.resource.data.city.size() <= 100
+        && request.resource.data.chronicle is string && request.resource.data.chronicle.size() <= 100;
+    }
+
+    match /artifacts/{appId}/public/data/game_state/{docId} {
+      allow read: if isMember(appId);
+      allow write: if isStaff(appId);
+    }
+
+    // ── AIP et influences ─────────────────────────────────────────
+    // Un joueur ne lit que ses dossiers et ne peut les modifier que tant
+    // qu'ils sont « submitted » (avant verrouillage par les conteurs).
+    match /artifacts/{appId}/public/data/global_aips/{docId} {
+      allow read: if isStaff(appId)
+        || (isMember(appId) && resource.data.userId == request.auth.uid);
+      // La décision du conteur sur la nourriture (feedingReview) n'est jamais écrite par le joueur.
+      allow create: if isStaff(appId)
+        || (playerCanCreate(appId) && !('feedingReview' in request.resource.data) && !('learningReviews' in request.resource.data) && !('expenseReviews' in request.resource.data));
+      allow update: if isStaff(appId)
+        || (playerCanUpdate(appId)
+          && request.resource.data.get('feedingReview', null) == resource.data.get('feedingReview', null)
+          && request.resource.data.get('learningReviews', null) == resource.data.get('learningReviews', null)
+          && request.resource.data.get('expenseReviews', null) == resource.data.get('expenseReviews', null));
+      allow delete: if isStaff(appId);
+    }
+
+    match /artifacts/{appId}/public/data/global_influences/{docId} {
+      allow read: if isStaff(appId)
+        || (isMember(appId) && resource.data.userId == request.auth.uid);
+      allow create: if isStaff(appId) || (playerCanCreate(appId) && !('obstructionLinks' in request.resource.data));
+      allow update: if isStaff(appId) || (playerCanUpdate(appId)
+        && request.resource.data.get('obstructionLinks', []) == resource.data.get('obstructionLinks', []));
+      allow delete: if isStaff(appId);
+    }
+
+    // Cycle en pause (« pas de cycle ce mois-ci ») : les joueurs ne déposent ni ne modifient rien.
+    function cycleOpen(appId) {
+      return get(/databases/$(database)/documents/artifacts/$(appId)/public/data/game_state/cycle).data.get('open', true) != false;
+    }
+
+    function playerCanCreate(appId) {
+      return roleOf(appId) == 'player'
+        && cycleOpen(appId)
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status == 'submitted';
+    }
+
+    function playerCanUpdate(appId) {
+      return roleOf(appId) == 'player'
+        && cycleOpen(appId)
+        && resource.data.userId == request.auth.uid
+        && resource.data.status == 'submitted'
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status == 'submitted';
+    }
+
+    // Demandes de progression : aucune note interne ni décision écrite par le joueur.
+    match /artifacts/{appId}/public/data/learning_requests/{requestId} {
+      allow read: if isStaff(appId) || (roleOf(appId) == 'player' && resource.data.userId == request.auth.uid);
+      allow create: if roleOf(appId) == 'player'
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasOnly(['characterName', 'clan', 'type', 'action', 'currentLevel', 'levels', 'mentor', 'date', 'notes', 'decisionReason', 'userId', 'characterId', 'explanation', 'monthLabel', 'createdAt'])
+        && request.resource.data.notes == '' && request.resource.data.decisionReason == '' && request.resource.data.date == ''
+        && request.resource.data.action is string && request.resource.data.action.size() > 0
+        && request.resource.data.explanation is string && request.resource.data.explanation.size() > 0;
+    }
+
+    // ── Annuaire des profils (miroir public du profil) ────────────
+    // Chacun écrit le sien sans pouvoir changer son rôle ; l'admin gère tout.
+    match /artifacts/{appId}/public/data/user_profiles/{uid} {
+      allow read: if isStaff(appId) || isSelf(uid);
+      allow write: if isAdmin(appId);
+      allow create, update: if isSelf(uid)
+        && roleOf(appId) != 'deleted'
+        && request.resource.data.get('role', 'pending') == roleOf(appId);
+    }
+
+    // ── Annuaire des personnages (« Avec qui ») ───────────────────
+    // Lu par tous les membres. Un joueur n'y écrit que sa propre fiche (id = son uid) ;
+    // les PNJ « connus des joueurs » y sont ajoutés par les conteurs.
+    match /artifacts/{appId}/public/data/directory/{entryId} {
+      allow read: if isMember(appId);
+      allow create, update: if roleOf(appId) == 'player'
+        && entryId == request.auth.uid
+        && request.resource.data.kind == 'pj'
+        && request.resource.data.uid == request.auth.uid;
+    }
+
+    // ── Pertes d'influence (attaques validées par un conteur) ─────
+    // Écrites par les conteurs ; un joueur lit seulement les siennes (champ targetUid).
+    match /artifacts/{appId}/public/data/influence_losses/{lossId} {
+      allow read: if isStaff(appId)
+        || (isMember(appId) && resource.data.targetUid == request.auth.uid);
+    }
+
+    // ── Tout le reste de la chronique : réservé aux conteurs ──────
+    // (PNJ, apprentissages, plots, timeline, conteurs, configuration, rumeurs de conteur rumor_seeds…)
+    // L'annuaire est exclu : sinon un conteur pourrait y réécrire les rôles.
+    match /artifacts/{appId}/public/data/{collection}/{docId} {
+      allow read, write: if isStaff(appId) && !(collection in ['user_profiles', 'instance_settings']);
+    }
+
+    // ── Comptes ───────────────────────────────────────────────────
+    match /artifacts/{appId}/users/{uid} {
+      allow read, delete: if isAdmin(appId);
+    }
+
+    match /artifacts/{appId}/users/{uid}/profile/info {
+      allow read: if isSelf(uid) || isAdmin(appId);
+      // Inscription : le compte naît forcément « pending ».
+      allow create: if isAdmin(appId)
+        || (isSelf(uid) && request.resource.data.role == 'pending');
+      // Le joueur édite son profil mais jamais son rôle.
+      allow update: if isAdmin(appId)
+        || (isSelf(uid) && !(roleOf(appId) in ['rejected', 'deleted']) && request.resource.data.get('role', 'pending') == resource.data.get('role', 'pending'));
+      allow delete: if isAdmin(appId);
+    }
+
+    // Autres données privées (hors profil, géré au-dessus). L'admin a accès à
+    // tout, y compris la liste de `profile` dont il a besoin pour supprimer un compte.
+    match /artifacts/{appId}/users/{uid}/{collection}/{docId} {
+      allow read, write: if (collection != 'profile' && isSelf(uid) && isMember(appId)) || isAdmin(appId);
+    }
+  }
+}

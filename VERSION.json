@@ -1,0 +1,817 @@
+{
+  "name": "intranuit-replicable-2026-11-03-2",
+  "version": "1.0.0-replicable.20261103.2",
+  "date": "2026-11-03",
+  "variant": "replicable",
+  "originalInstance": false,
+  "containsProductionData": false,
+  "containsGitHistory": false,
+  "accountDeletion": "profile removed and access blocked; game records retained for storytellers",
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 501,
+      "sha256": "aa248d2a6ff8b58ee049d236efcc0c361fc88b52415870394abcaadcb231257c"
+    },
+    {
+      "path": ".github/workflows/deploy-pages.yml",
+      "bytes": 1921,
+      "sha256": "0e22b82f8861592a26c5e4bfe200147c7fd373a2175b3d2ee66ba0c79e1730e5"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 74,
+      "sha256": "df38444b874e8a22115e24ab8b3e4384a646b391ffd01b012ec344d4711d3204"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4248,
+      "sha256": "7757f6efcaa5415f11efa95229c4cd2a3c568b95b345e96691bab37c166a3a4e"
+    },
+    {
+      "path": "docs/Guide-Intranuit.pdf",
+      "bytes": 871111,
+      "sha256": "73a70dd6f03347bb9fc0f8d13de04d6b1e0850ae0cc8d069f51e4aba7ddb6bb6"
+    },
+    {
+      "path": "docs/guide-replication/GUIDE-INTRANUIT.md",
+      "bytes": 38704,
+      "sha256": "1185c16dcb6b02ec491a24f7d3a1c17c46d4aae43858d3a65136a6ce07a4b094"
+    },
+    {
+      "path": "docs/guide-replication/Intranuit-presentation-et-installation.html",
+      "bytes": 1141006,
+      "sha256": "8216a6b80fb909cdb5ee44210903663022f27e0d2dcea1104f3221a41f1895c6"
+    },
+    {
+      "path": "docs/guide-replication/deploy-pages.yml.example",
+      "bytes": 2072,
+      "sha256": "ebc66b47359dd88fee9e9b9291fce4bfb366f827121d61e54bdb215195311d59"
+    },
+    {
+      "path": "docs/guide-replication/images/01-console-aip.jpg",
+      "bytes": 56524,
+      "sha256": "2efbfda0cb2cbfb8ee0f61968da3595c47e7a29482d35552dccc07179be8d6cb"
+    },
+    {
+      "path": "docs/guide-replication/images/02-influences.jpg",
+      "bytes": 64788,
+      "sha256": "4e2ef13b1d714ef1784f0a3bff80bdc8e2d466b29744c6bd86e558f8143a9650"
+    },
+    {
+      "path": "docs/guide-replication/images/03-obstructions.jpg",
+      "bytes": 175858,
+      "sha256": "c5db2045ffc121fba97edabf321e8c7173824a0e3e1cb85e7c4cf6d299452287"
+    },
+    {
+      "path": "docs/guide-replication/images/04-rumeurs.jpg",
+      "bytes": 61631,
+      "sha256": "f0792ce78c7f58ee1120d5e8d8805dac4807165ea2dc796ebe4f3c9cf8933bfd"
+    },
+    {
+      "path": "docs/guide-replication/images/05-reglages.jpg",
+      "bytes": 56266,
+      "sha256": "5dc18fecdf8df4d3ad3f3fe803b3cf5111daab4a114e7b3944a30e6a063c59a2"
+    },
+    {
+      "path": "docs/guide-replication/images/06-pnj.jpg",
+      "bytes": 39025,
+      "sha256": "59a8128c9bdbe19ffc0f17b2b855da8bef0cadc8ede7515ec9d2fb6cd9dd9e10"
+    },
+    {
+      "path": "docs/guide-replication/images/07-tableau-joueur.jpg",
+      "bytes": 57329,
+      "sha256": "46631ad5a5860b2dded4c04d6b5d602d6ea5835fca70a2da0df718a2a7ef4942"
+    },
+    {
+      "path": "docs/guide-replication/images/08-formulaire-aip.jpg",
+      "bytes": 42906,
+      "sha256": "bf9b2302253bb1bfd92a4bfe441aaad88f149df356315e100ba6b23bec6608ef"
+    },
+    {
+      "path": "docs/guide-replication/images/09-profil.jpg",
+      "bytes": 49211,
+      "sha256": "3dcf19753ff35c58d6258aef5a4458585bdec9a640bc44b6029b7e901263de99"
+    },
+    {
+      "path": "docs/guide-replication/images/10-depenses.jpg",
+      "bytes": 51881,
+      "sha256": "909b3dcef14ef7dd7ec25fdb12fff451c99f985530f6eef767ff80f1315f790c"
+    },
+    {
+      "path": "docs/guide-replication/images/11-progressions.jpg",
+      "bytes": 46322,
+      "sha256": "2bab9e22dacdebc06f3e1d6478b0b609cd0ddc9bd6b163546e246d774b6ed08b"
+    },
+    {
+      "path": "docs/guide-replication/images/12-retour-mobile.jpg",
+      "bytes": 41394,
+      "sha256": "9f539114119904108c4397141d905efc149a563b50b558e8f88455155b1f7ccd"
+    },
+    {
+      "path": "docs/guide-replication/images/13-administration.jpg",
+      "bytes": 36259,
+      "sha256": "db831197d5ba5daca96133176caec85ba199f7370270727c202abefd90cfab69"
+    },
+    {
+      "path": "docs/guide-replication/images/14-installation-mobile.jpg",
+      "bytes": 37127,
+      "sha256": "75d7e797bbf9a9ec3c47121d1f4fa693268dd661d684ba6135a79b448a51c9ba"
+    },
+    {
+      "path": "firebase.json",
+      "bytes": 56,
+      "sha256": "e87125f3ec6439a59ba44d80a6dcc46378a27a0644b0cda30abeafd2efb67e20"
+    },
+    {
+      "path": "firebase.test.json",
+      "bytes": 277,
+      "sha256": "2d3708b0879105b7db4afd3f992ea1d5213d4add3e837530658bd67831595435"
+    },
+    {
+      "path": "firestore.rules",
+      "bytes": 9150,
+      "sha256": "0b516c4262e5cbe2327145fd482ec89c50ed54067197668072782a1b326d2381"
+    },
+    {
+      "path": "index.html",
+      "bytes": 974,
+      "sha256": "3f70f9bfedf09916996745f9476dcc8081b731a99f3086bb122752e8e08fb716"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 387849,
+      "sha256": "d2b7bfa9d81b8dcd08a5ac414d8b0aed617bf4277db52ff7f88ba5987c9a640c"
+    },
+    {
+      "path": "package.json",
+      "bytes": 953,
+      "sha256": "332120b7d313a5ed98d8fa990076862d447c2aa836c84b8a98da3723551d4a6c"
+    },
+    {
+      "path": "postcss.config.js",
+      "bytes": 155,
+      "sha256": "0b19ab1006a66587cd08cb83cafaa6b957c409fb841d1225adb3b195adf6ff2d"
+    },
+    {
+      "path": "public/icons/app-192.png",
+      "bytes": 2396,
+      "sha256": "ba1d7eff3a5cd85b114129a1cbb71763d713e31a1c0a6b4d36b849261fe6ec3c"
+    },
+    {
+      "path": "public/icons/app-512.png",
+      "bytes": 7041,
+      "sha256": "06e6995f5d6cb21430ca54306154a978c8d7d06a96b4eacd219766cff72ce541"
+    },
+    {
+      "path": "public/manifest.webmanifest",
+      "bytes": 454,
+      "sha256": "7dbacfb201fb23ac5f12424c197681b0e25e4e8f7de452877937d9dab6865cba"
+    },
+    {
+      "path": "public/moon.svg",
+      "bytes": 144,
+      "sha256": "ba1ae79dd9592e9da21254e0eda98678ff55c017227d94e0384a795ba84cf696"
+    },
+    {
+      "path": "scripts/firebase-java21.mjs",
+      "bytes": 2635,
+      "sha256": "1e4f2c87d6d6daeba1ee03b7d1c034492fced335fda133f4837a4bd059845894"
+    },
+    {
+      "path": "scripts/test-unit.mjs",
+      "bytes": 434,
+      "sha256": "0eee8494105511a6fbad84dbe6908cfef33f9172806344cd516645352cac3b6b"
+    },
+    {
+      "path": "src/App.jsx",
+      "bytes": 26296,
+      "sha256": "c8cd7d1c7f4a2b13990b5a686d75a68e988658c35415330e03fcc2ea7cae3d82"
+    },
+    {
+      "path": "src/components/admin/AccountManager.jsx",
+      "bytes": 28544,
+      "sha256": "ecb77f595b2696bd6a28cdd49a5bc1b932ca0842f12144327e89f5c617bad6cf"
+    },
+    {
+      "path": "src/components/admin/AddInfluenceModal.jsx",
+      "bytes": 12590,
+      "sha256": "759eeb889243d7ffc6f16d15f82cc64d5d1db553b529c9e65f1af51dbce81782"
+    },
+    {
+      "path": "src/components/admin/AipGroupModal.jsx",
+      "bytes": 9716,
+      "sha256": "172b971bfc18d22975e5a9534ea72241be11079d1cad7ea3994c853396a5f360"
+    },
+    {
+      "path": "src/components/admin/AntagonistManager.jsx",
+      "bytes": 31078,
+      "sha256": "79556aee5bbc7c7eb16d3f0f6083a9f0a3f8b079689729256060d83e95a15b7f"
+    },
+    {
+      "path": "src/components/admin/CycleSettings.jsx",
+      "bytes": 4884,
+      "sha256": "82a1f2737f866fd698649fc17cf0ec58693ef8e7c31d302fe9ab25a89ed6b222"
+    },
+    {
+      "path": "src/components/admin/ExpenseReviewPanel.jsx",
+      "bytes": 938,
+      "sha256": "26cd4cf16c62039c98e92ff06c7ee2ba7ee82bc9f6dbf9a8d5e8c48c69b22b8b"
+    },
+    {
+      "path": "src/components/admin/FeedingPanel.jsx",
+      "bytes": 7401,
+      "sha256": "694bc531cbd03d3569cb689d936507c4af68d8dd01fb502d7ee304c5505fadce"
+    },
+    {
+      "path": "src/components/admin/FilterBar.jsx",
+      "bytes": 7570,
+      "sha256": "7aeab55626ac8f75da503740712d0d3d95d3a8327e6d59dbaf77bbac0e416a4a"
+    },
+    {
+      "path": "src/components/admin/InfluenceControlPanel.jsx",
+      "bytes": 41313,
+      "sha256": "442863b3d39b1742ea11ea83acc3339795d15e94ae8930e01d9cb2e0bbc5d395"
+    },
+    {
+      "path": "src/components/admin/InstanceSettings.jsx",
+      "bytes": 1882,
+      "sha256": "8aa0640ae80cf7f45b22b7e995b07afaedb4192395cbda65dd7ef3456b47caab"
+    },
+    {
+      "path": "src/components/admin/LearningPanel.jsx",
+      "bytes": 22000,
+      "sha256": "8ab38bda00441c9d2dc66f78dc1b4578e430efb4f9dd8179e7bb17c78ccca066"
+    },
+    {
+      "path": "src/components/admin/ListsPanel.jsx",
+      "bytes": 4889,
+      "sha256": "19c1f69bfe9e16a1c3b92bd83880dcaef46593dcbc74f1b6f7d52100d682b329"
+    },
+    {
+      "path": "src/components/admin/NetworkCatalog.jsx",
+      "bytes": 10393,
+      "sha256": "e578f44e41ac79d3b07d1c75c46c803980a030a9b31ad39925a1eddd3f04ff83"
+    },
+    {
+      "path": "src/components/admin/NpcAipEditor.jsx",
+      "bytes": 7374,
+      "sha256": "242c71bc65a9cd7baf15ab215c48d11c42f6566ac69611427d72ffa5c7359b62"
+    },
+    {
+      "path": "src/components/admin/ObstructionCells.jsx",
+      "bytes": 7986,
+      "sha256": "8a7f6da84e6497cfd4e81ac384e36ce2b7cb3e1704c9e59f7e1aee5f2950a7a5"
+    },
+    {
+      "path": "src/components/admin/ObstructionLinks.jsx",
+      "bytes": 7728,
+      "sha256": "ade4b4fcd8eadf35909d9e244166124e20f3e838b411178838e6bb0c4e3783aa"
+    },
+    {
+      "path": "src/components/admin/PNJHistoryModal.jsx",
+      "bytes": 6005,
+      "sha256": "a442156ca4836ca8b3097b0ffa4c8c29b210f509e4e45d3a99464ac6b9170513"
+    },
+    {
+      "path": "src/components/admin/ResolutionPanel.jsx",
+      "bytes": 28202,
+      "sha256": "8d671a48fbbfc72f5209db59abc204d578b481dae371ae16b95f2c1bb7676e16"
+    },
+    {
+      "path": "src/components/admin/RumorEditor.jsx",
+      "bytes": 23918,
+      "sha256": "2e8a6f8a576c2e71c9a7aefb0b8cde5eebb4e4b1dccc488db365e116f6382f8e"
+    },
+    {
+      "path": "src/components/admin/RumorSeedsPanel.jsx",
+      "bytes": 17997,
+      "sha256": "db73230d240735d37068b78a044f562806aca6f404e722f2402cccf3140143d3"
+    },
+    {
+      "path": "src/components/admin/StorytellerControlPanel.jsx",
+      "bytes": 75395,
+      "sha256": "f16e44441896a97bf2465daa3c50e8ab43dc206b1ea79c66bd8245e0b6bd1548"
+    },
+    {
+      "path": "src/components/admin/StorytellerManager.jsx",
+      "bytes": 6398,
+      "sha256": "666619ddc25a9709aaed35140b106f0af933fb8853f272ff9bf24626491bc008"
+    },
+    {
+      "path": "src/components/auth/AuthGate.jsx",
+      "bytes": 17378,
+      "sha256": "ab08f2aa0e5f07975d4477d397eb088e5eab671036dae8599463cd4653cfd6b8"
+    },
+    {
+      "path": "src/components/auth/PendingScreen.jsx",
+      "bytes": 3776,
+      "sha256": "534adc1d7939ff82b4acb3fbe8257df2ee4f75ea64885e842e8da8bc112abe6f"
+    },
+    {
+      "path": "src/components/dashboard/Archives.jsx",
+      "bytes": 23911,
+      "sha256": "97ef40ab40e28389eb2f525bab2caa0c0fd0aa58d7e5c967a2e32e3d6bf43a3c"
+    },
+    {
+      "path": "src/components/dashboard/DossierDetail.jsx",
+      "bytes": 15460,
+      "sha256": "15fb5b328544581b00bd336813e79d7435347f3dc30b0624e3e13b4aadf6eacb"
+    },
+    {
+      "path": "src/components/dashboard/InfluenceArchiveTable.jsx",
+      "bytes": 4119,
+      "sha256": "12102a9e1b87938a50e528cc69c918de6c0442ab3daede72cec7bfe7f250f055"
+    },
+    {
+      "path": "src/components/dashboard/LearningRequests.jsx",
+      "bytes": 5061,
+      "sha256": "91b276e87b59c3d2eede73f69c0c0f6ae142a20f70075a68c362c420e1cc40a1"
+    },
+    {
+      "path": "src/components/dashboard/PlayerDashboard.jsx",
+      "bytes": 22502,
+      "sha256": "359b6ebfb924fa21fd653295e11cbaf9c2619f62bb657dc9542704e2b6c99708"
+    },
+    {
+      "path": "src/components/forms/AIPForm.jsx",
+      "bytes": 12076,
+      "sha256": "8a36232abdc5ee6852ef352ba13bce480db9c50ae1d2d3c57590b4249c1cdc19"
+    },
+    {
+      "path": "src/components/forms/ActionBlock.jsx",
+      "bytes": 8118,
+      "sha256": "f8975264ece7bf2696904cb591dca2878d4d5f6f226f270a8a2090e150a8d341"
+    },
+    {
+      "path": "src/components/forms/InfluenceForm.jsx",
+      "bytes": 30220,
+      "sha256": "8abac1a2c7c9afe1390f0ba8e62609ea11c20715d371a9e34fd88cb286fde00b"
+    },
+    {
+      "path": "src/components/forms/LearningFields.jsx",
+      "bytes": 1980,
+      "sha256": "828dbadaf667da62ca78f31f8db58d1079b968e1335676995aa093e718eae4db"
+    },
+    {
+      "path": "src/components/forms/ProfileEditor.jsx",
+      "bytes": 21329,
+      "sha256": "f197dd8d9f4038865b16b456a79145160a5f6ac9ec2756a83f5b97c53216c8d3"
+    },
+    {
+      "path": "src/components/forms/ProfilePrivacy.jsx",
+      "bytes": 3182,
+      "sha256": "5246c0a01ca5b788831b3772f7cea5d84c0bca38816301390105a5668365db13"
+    },
+    {
+      "path": "src/components/ui/AuthField.jsx",
+      "bytes": 1407,
+      "sha256": "8736f7e01ef20204f52d2bc98de8384c7a0a7149131e8c3b3e9fb87fe9c42bb0"
+    },
+    {
+      "path": "src/components/ui/ConsoleTabs.jsx",
+      "bytes": 4994,
+      "sha256": "fe85f6217ed2d94a8b850ec1a29180492bfdc3d28f92bb083f55718fbfed2ae4"
+    },
+    {
+      "path": "src/components/ui/ExpensesTable.jsx",
+      "bytes": 7462,
+      "sha256": "549d03a358f6a7435807d1b018202ee423090811c3148fbf9a6ef7bffb710f4d"
+    },
+    {
+      "path": "src/components/ui/FloatingList.jsx",
+      "bytes": 2534,
+      "sha256": "9930554481f3a6ba800f1676e1c90303a64803ceb5f4e9ccda183ec5e2218190"
+    },
+    {
+      "path": "src/components/ui/InstallApp.jsx",
+      "bytes": 2703,
+      "sha256": "9cc2a3d48dcbdbae621e3196e759d10e6c7e5d28fb4ddb7494cc3b7944e95f45"
+    },
+    {
+      "path": "src/components/ui/LevelLabel.jsx",
+      "bytes": 1543,
+      "sha256": "1431b5b349a2e9f82ecc098e1783f7c335e18a6552f482ac24e02da88accc69e"
+    },
+    {
+      "path": "src/components/ui/NavTab.jsx",
+      "bytes": 1327,
+      "sha256": "667563cd742d0496ba677d0f509b6ee6e4cbd278b3d6dc4002fcb2eb0d25c80c"
+    },
+    {
+      "path": "src/components/ui/NetworkInput.jsx",
+      "bytes": 4680,
+      "sha256": "228afcdc55c5eff230d2d1b02f41f6d8122e4f94db99dfef95bd4438b2ec8398"
+    },
+    {
+      "path": "src/components/ui/PFCWIdget.jsx",
+      "bytes": 7592,
+      "sha256": "5f5bb8352c49532a5212568400bc74edf82e17442c4747f3613bfb29fed3c721"
+    },
+    {
+      "path": "src/components/ui/PeopleInput.jsx",
+      "bytes": 6019,
+      "sha256": "cf32fc8baf49db99e3d7534d99d46f29f020c570b8c4595377ee139402ac16d9"
+    },
+    {
+      "path": "src/components/ui/ProfileData.jsx",
+      "bytes": 384,
+      "sha256": "9ca780b0b7e3cc1e034c18789dd4d74bbd7c5673a20aade1626c0e65aedcebf9"
+    },
+    {
+      "path": "src/components/ui/RumorTable.jsx",
+      "bytes": 4036,
+      "sha256": "48fa760f5df8b12b61c2a42e24c0343599876301ea124fa7151481fc0eb773c7"
+    },
+    {
+      "path": "src/components/ui/ScoreField.jsx",
+      "bytes": 5120,
+      "sha256": "81afc31b06cc9deb51b2c2493108c1935508e596ebe20174936713bb79951932"
+    },
+    {
+      "path": "src/components/ui/ScoreUsedInput.jsx",
+      "bytes": 4265,
+      "sha256": "1a29b94e6a163b0c341ca2c311fb0a375ff5064dc4c7b845a79b22519e353e99"
+    },
+    {
+      "path": "src/components/ui/SelectInput.jsx",
+      "bytes": 389,
+      "sha256": "88ffaf41e8f2d9e5998dc9014f35a12db280710d52d3c4452ee8c5d77b5f5ccf"
+    },
+    {
+      "path": "src/components/ui/StatePill.jsx",
+      "bytes": 666,
+      "sha256": "71535c24466537c5113052cf3d9ca65164720d9b1c0278431340360029591f72"
+    },
+    {
+      "path": "src/components/ui/StatusBadge.jsx",
+      "bytes": 670,
+      "sha256": "36487104f1c9ceb9e9f60ea3d852c8b1f043e8df8a0cfd336b537420b915457a"
+    },
+    {
+      "path": "src/components/ui/SubmitButton.jsx",
+      "bytes": 992,
+      "sha256": "9da842a1ab1823f1fb6cd6501fb3fa1edf2f6496b3a24d984918039fcb381bf1"
+    },
+    {
+      "path": "src/components/ui/ThemedSelect.jsx",
+      "bytes": 5689,
+      "sha256": "eac948e9d01538eb8f64d3529f0034c07fa0afac06ee71fd8de107660f1dfcb2"
+    },
+    {
+      "path": "src/constants/clans.js",
+      "bytes": 1275,
+      "sha256": "c582079e408bc8c6cf442b01782e0e430bf433114650de645d355bbaec68e0f1"
+    },
+    {
+      "path": "src/constants/index.js",
+      "bytes": 3749,
+      "sha256": "a1205d934007cd328693aa99bdcf45dfc7c367f7f02dcf7fcbbad884316fc04e"
+    },
+    {
+      "path": "src/context/DialogContext.jsx",
+      "bytes": 5870,
+      "sha256": "cca3f1cdb46a8986258bb25f3d18cc3d1f7e6794c9514e842fae17b8c6fd83d0"
+    },
+    {
+      "path": "src/context/InstanceContext.jsx",
+      "bytes": 1076,
+      "sha256": "525dc53cf9d3ccdef0634e79f3c27e95d9c24eae948413fa60eefec3edba0915"
+    },
+    {
+      "path": "src/context/ThemeContext.jsx",
+      "bytes": 2386,
+      "sha256": "c11c80011c0f312536205eff321ed6d98f0398a690b50deffa06acce40ce9138"
+    },
+    {
+      "path": "src/hooks/useAipGroups.js",
+      "bytes": 1344,
+      "sha256": "1ede99ce7527f5ba7e9c5b8d49ffd27ea9454e7b25262f0f6d5d0a1dae54fbfb"
+    },
+    {
+      "path": "src/hooks/useExport.js",
+      "bytes": 970,
+      "sha256": "bf332b7d2ed3c2da78c51286525f6e772ba0685d2674657d15573dfb2dc58a91"
+    },
+    {
+      "path": "src/hooks/useInfluenceNetworks.js",
+      "bytes": 1607,
+      "sha256": "3a6bb63541bf6958fc7db0aa9f859c9294888416ede9c8743197113c55d65edf"
+    },
+    {
+      "path": "src/hooks/useInfluenceState.js",
+      "bytes": 2428,
+      "sha256": "ecc7c3366ea54717922a532adf8377438aeec98aa03cac4f64e2ac1e63a2675e"
+    },
+    {
+      "path": "src/hooks/useInfluences.js",
+      "bytes": 1029,
+      "sha256": "615f6c814c7000983d89d51f7ab8c81f6d55ff409ec21a755b2129bef34b8fa1"
+    },
+    {
+      "path": "src/hooks/useLists.js",
+      "bytes": 920,
+      "sha256": "48a0529b934c633ee3b2e06e1cf619a7d33ea2ce7a185d6bcad24f5b86a6fa74"
+    },
+    {
+      "path": "src/hooks/useRumorSeeds.js",
+      "bytes": 1288,
+      "sha256": "552a1e6e05aa49957669d9f8657618751a14d6dc309ee7041783c7700a9e7d6a"
+    },
+    {
+      "path": "src/hooks/useStorytellers.js",
+      "bytes": 1154,
+      "sha256": "20ca5703298e0d6cf9be1c0ed32f6f4f30c69419e611e95462f16647df7bcd97"
+    },
+    {
+      "path": "src/index.css",
+      "bytes": 4947,
+      "sha256": "522bb25bdce582bd06b9b957a629af7ea0de6ffbedc27c6854ffa9fd400e7d27"
+    },
+    {
+      "path": "src/lib/deleteAccount.js",
+      "bytes": 228,
+      "sha256": "9bc7113fb411cf181daef447767f2d9a1cfd0e428f3ae57bfb53c5936489bb8a"
+    },
+    {
+      "path": "src/lib/directory.js",
+      "bytes": 1496,
+      "sha256": "daca4a05244b01e04c5ca69c83bd2a57ba3b5c87e1355634483517e226d2010f"
+    },
+    {
+      "path": "src/lib/features.js",
+      "bytes": 117,
+      "sha256": "1713b06a1b0a8beb5f54f97c93d0d3444127ff43e5bec681b97b30399039ef7a"
+    },
+    {
+      "path": "src/lib/firebase.js",
+      "bytes": 1457,
+      "sha256": "a32f9efa5b2b3be81f378386a9cd71f32ce9e90c3fa9ccef56ea57badf73d824"
+    },
+    {
+      "path": "src/lib/instance.js",
+      "bytes": 747,
+      "sha256": "206988ac57ef91a0dc94d3e544f99e3f1978fb846d520211d100bc4d3f0eda86"
+    },
+    {
+      "path": "src/main.jsx",
+      "bytes": 234,
+      "sha256": "dfe7f7d0a5d86fe1ab508f0eb8608eb46efeba6819f9bd8ade68d9af6873a739"
+    },
+    {
+      "path": "src/utils/aipGroups.js",
+      "bytes": 3609,
+      "sha256": "7ebdd0b1f886f9d62d74bd28f66ed2d5a334e81c9ad2190caa2ec053908317f5"
+    },
+    {
+      "path": "src/utils/aipLabel.js",
+      "bytes": 1399,
+      "sha256": "bab00f96fcd9b34d64e42c4956c25f93727e95c359c1bf276dec77ab125ef2de"
+    },
+    {
+      "path": "src/utils/antagonistActions.js",
+      "bytes": 5266,
+      "sha256": "29b75468da373a997d29784e045e3b54915b21ddc2f697afecdac3726e064fdc"
+    },
+    {
+      "path": "src/utils/antagonistSheet.js",
+      "bytes": 2938,
+      "sha256": "96421f1ef9bbf84fed297d9dbbbec2a4a723b9eabc4a7ff277d14c09b565f70e"
+    },
+    {
+      "path": "src/utils/characters.js",
+      "bytes": 3387,
+      "sha256": "56d130bdb591b76e23f93e034883525cd0a3e6ea5fdcfedb735540d1067d5047"
+    },
+    {
+      "path": "src/utils/cycle.js",
+      "bytes": 1642,
+      "sha256": "e70f5d2e574121a520d3b10a3d5bce72653a52bdcf72ed4cedfae03fc853e40b"
+    },
+    {
+      "path": "src/utils/deleteAccountData.js",
+      "bytes": 1898,
+      "sha256": "23e052b0a41e57692004ca1cbeae58a3f5bcfb5d5e6ac5a5de034e80f810a608"
+    },
+    {
+      "path": "src/utils/dispatch.js",
+      "bytes": 791,
+      "sha256": "ad3a223dd6e7fe433a9f2516a2bdfd09ea388f2180a11307414fbf6cfb47f1cd"
+    },
+    {
+      "path": "src/utils/dossierState.js",
+      "bytes": 1085,
+      "sha256": "ec0088857f504e57a6eec248f19cc941b497be78e38c249b71e377e6594ed654"
+    },
+    {
+      "path": "src/utils/downloadExport.js",
+      "bytes": 488,
+      "sha256": "9bfb29846182d03bf507fa2266bfc4ed9b34840b0bdf275f6eaa96dd8bf25b9d"
+    },
+    {
+      "path": "src/utils/expenses.js",
+      "bytes": 2739,
+      "sha256": "0ae3427c7830d4f5ce717f6fa55acb0dbbf554095cca5e82b2e09e585cb9303d"
+    },
+    {
+      "path": "src/utils/exportWorkbooks.js",
+      "bytes": 5883,
+      "sha256": "5c3f8ea8df143a76691465bea0ef77259a120ce39c24792c3c2e28db98ee57b7"
+    },
+    {
+      "path": "src/utils/feeding.js",
+      "bytes": 3838,
+      "sha256": "6c30fe4e83c1603a1a48c26a7ccbacbe051d492f994566e4f77ccde0f43c6b1d"
+    },
+    {
+      "path": "src/utils/filterOptions.js",
+      "bytes": 774,
+      "sha256": "26d3a5846ce53fcb23ff3c189bc5789c5f25d6934a0fca4d0944ee482f631ab0"
+    },
+    {
+      "path": "src/utils/influenceNetworks.js",
+      "bytes": 5392,
+      "sha256": "5b09a357a4604ac331ed5ac27da00bb1c78dd80a310bf60d0ca6483b19cea652"
+    },
+    {
+      "path": "src/utils/influenceRules.js",
+      "bytes": 13165,
+      "sha256": "f1eae16a5b031572c1458822a51b1c4e68fb5ced219c35eca92665cce2ddbf7f"
+    },
+    {
+      "path": "src/utils/learningRequests.js",
+      "bytes": 2656,
+      "sha256": "045b079121c87bd36df8a6d824e810d95911ec8bfd0f8f34632afdd04a96aaad"
+    },
+    {
+      "path": "src/utils/learnings.js",
+      "bytes": 4228,
+      "sha256": "616eff042daea550b927faa34f900d7e9f3d646eb184c870ee5673d8e29e65bb"
+    },
+    {
+      "path": "src/utils/lists.js",
+      "bytes": 2197,
+      "sha256": "9b0b66078b97469706ec710d6392f3c5c31d2b912a0dac223637462f6e20a6ae"
+    },
+    {
+      "path": "src/utils/monthLabels.js",
+      "bytes": 1631,
+      "sha256": "06bb988a77921ebe9d10a953774cc01973622fb4d7c2bc7e2abe02ee0ac495ad"
+    },
+    {
+      "path": "src/utils/npcInfluences.js",
+      "bytes": 3067,
+      "sha256": "3d0d31a21db0b43878c04e60d0e33890f4c581d38a2398141c9c452ba807a5ea"
+    },
+    {
+      "path": "src/utils/obstruction.js",
+      "bytes": 6402,
+      "sha256": "bd9d06d942482d649621dee18fb89303d1272a73dae5dc540744c50ae80be4ba"
+    },
+    {
+      "path": "src/utils/rumors.js",
+      "bytes": 16292,
+      "sha256": "a4241f1e375cce196131d8694e68580f95e602d78e23c9963e71f030902a60d0"
+    },
+    {
+      "path": "src/utils/saveObstructionLinks.js",
+      "bytes": 2251,
+      "sha256": "055ebecbc83ba88bad43c47711cb48770d8706ab3e77a4916a29434f906d1f5f"
+    },
+    {
+      "path": "src/utils/saveRumorUsage.js",
+      "bytes": 623,
+      "sha256": "76dd127d05225f51525837cab7b34872fa0ec10be6e09c48f31f650f3de40179"
+    },
+    {
+      "path": "src/utils/sheet.js",
+      "bytes": 919,
+      "sha256": "1c0695f8011dfcdc6cb67090685d7929408661af1e8eef8cb0baa8216043de46"
+    },
+    {
+      "path": "src/utils/staffAIPExport.js",
+      "bytes": 951,
+      "sha256": "62cfc3ca2fa14a7cbd1c7a1c501cfac0bd46ed3a3ade777ce6c08b4668dac5b1"
+    },
+    {
+      "path": "tailwind.config.js",
+      "bytes": 315,
+      "sha256": "598ee0fb23158c1b35e64964b32d860605dfc219910dc7d93092d9c705facdfe"
+    },
+    {
+      "path": "tests/aipGroups.test.js",
+      "bytes": 3105,
+      "sha256": "7c225243f6f9e19778e39cef014ec9067cbb8ad503aa8e8b133fec7eb212dc1c"
+    },
+    {
+      "path": "tests/antagonistActions.test.js",
+      "bytes": 5983,
+      "sha256": "14159c81a2de1fc1406c6fafe63439f63b01ddc895db06dfa94c7240bf192f81"
+    },
+    {
+      "path": "tests/antagonistSheet.test.js",
+      "bytes": 2470,
+      "sha256": "afa834130f5bb3052d94af7eb0b35cde3b35516fff4bb77614f38d69e3037f77"
+    },
+    {
+      "path": "tests/characters.test.js",
+      "bytes": 2470,
+      "sha256": "a38076416b08809f28a1e7fa5ab1fe6a166dff6b8de2f1f4e5ea877d6be1d68d"
+    },
+    {
+      "path": "tests/cycle.test.js",
+      "bytes": 1272,
+      "sha256": "f7f6b97ff19f28edcc194f1db7c65a6e2d4ba91060e8b8f6d8a3646387759654"
+    },
+    {
+      "path": "tests/dispatch.test.js",
+      "bytes": 1306,
+      "sha256": "ec2dc105bb15156bb940289d31c42194d297a8eb5a8adc59d74db9922c4b4095"
+    },
+    {
+      "path": "tests/expenses.test.js",
+      "bytes": 2975,
+      "sha256": "1de6c888072837f75cfd15ff38a122195ae530a7542eee760033751294344853"
+    },
+    {
+      "path": "tests/exportWorkbooks.test.js",
+      "bytes": 4591,
+      "sha256": "69584d04fae60fe9ffde4acd01109250ca4aae5b3b87b36fdceb8aa97b7ebbb9"
+    },
+    {
+      "path": "tests/feeding.test.js",
+      "bytes": 3414,
+      "sha256": "19e682aa1b3fbda84124e415f4f0e73a4a3c4393c4ccaf224d5dc8ee8fb8e367"
+    },
+    {
+      "path": "tests/filterOptions.test.js",
+      "bytes": 1203,
+      "sha256": "bffa7caf0b31f16c15cd403e19d437a81e2a53e6f5e714e8026073e0e074c6cf"
+    },
+    {
+      "path": "tests/firestore.rules.test.js",
+      "bytes": 32494,
+      "sha256": "1d999a63b729393e7719ea9dc00e54fb171f12da1d50c49b839229e0b963275f"
+    },
+    {
+      "path": "tests/influenceNetworks.test.js",
+      "bytes": 2824,
+      "sha256": "58b790330ee1079acc3b88b547be10da012702c982607409a8c6f6d530c03bd9"
+    },
+    {
+      "path": "tests/influenceRules.test.js",
+      "bytes": 13369,
+      "sha256": "65049bf36bde59f7a7cadcd99d4e1b414fe368fed9ff112b8e83d83392fa1ef4"
+    },
+    {
+      "path": "tests/learningRequests.test.js",
+      "bytes": 2871,
+      "sha256": "b38c92c36db6cdc549ccd820c7b11612437565a88ba18612884a7eaf61395f45"
+    },
+    {
+      "path": "tests/learnings.test.js",
+      "bytes": 4647,
+      "sha256": "f6899759c2e5dc9558424e539964943c3b25c993ae5edbb9d7d69716b81cf164"
+    },
+    {
+      "path": "tests/lists.test.js",
+      "bytes": 1674,
+      "sha256": "5158e10884033d1c08e6cd134c08255ad225a334f09c5504a72a1f6682ef65dc"
+    },
+    {
+      "path": "tests/npcInfluences.test.js",
+      "bytes": 3359,
+      "sha256": "5aa0f6cf242aa2e6d3d9cdd1187320e74315d846aa9e6068f391a74890eb6a73"
+    },
+    {
+      "path": "tests/obstruction.test.js",
+      "bytes": 3758,
+      "sha256": "b504e6afd1376c85097533aba9b226c4b33deeec1b8fc92467a4a9a1598af224"
+    },
+    {
+      "path": "tests/obstructionLinks.test.js",
+      "bytes": 3756,
+      "sha256": "06f38b4caf57256d9d3cd904b740fe268965a96c0e6cf86965969dc880d9a883"
+    },
+    {
+      "path": "tests/rumors.test.js",
+      "bytes": 22869,
+      "sha256": "30988c2eddda1d3d8b637340a51cdfb91fd4369721ae5a471dc0888da5a9eb69"
+    },
+    {
+      "path": "tests/sheet.test.js",
+      "bytes": 1138,
+      "sha256": "152bc109e8a193fb40155ca1ff15d7085f73979148d9a1d03897ddab5dd9a00b"
+    },
+    {
+      "path": "tests/staffAIPExport.test.js",
+      "bytes": 1844,
+      "sha256": "5cf3b106d48c656dcf93f7b25dc04fc12392c208ebb48a5dcc84a3761e160841"
+    },
+    {
+      "path": "vite.config.js",
+      "bytes": 767,
+      "sha256": "42e8bce2d6bed98ae03102346a310dfa30d1a0ed5f2e6a1268e141dbc513c852"
+    }
+  ]
+}

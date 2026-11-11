@@ -1,0 +1,152 @@
+/* Avec Tailwind v4, on utilise @import au lieu de @tailwind */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@layer base {
+  html {
+    background-color: #050505;
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #0a0a0a;
+    color: #e5e7eb;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  /* Ensure readable contrast inside native dropdown lists across browsers. */
+  select option,
+  select optgroup {
+    background-color: #181215;
+    color: #ece4e0;
+  }
+}
+
+/* Défilement : même palette sur les deux axes, y compris l'angle des tableaux. */
+:root {
+  color-scheme: dark;
+  --scroll-track: #120e10;
+  --scroll-thumb: #6b3035;
+  --scroll-hover: #99454c;
+}
+:root:has([data-interface-theme="light"]) {
+  color-scheme: light;
+  --scroll-track: #f0ede8;
+  --scroll-thumb: #c0a39f;
+  --scroll-hover: #a96b69;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: var(--scroll-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 10px;
+  border: 2px solid var(--scroll-track);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-hover);
+}
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: var(--scroll-thumb) var(--scroll-track); }
+}
+
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-in {
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Transitions douces ── */
+@keyframes view-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+.view-in { animation: view-in 0.45s cubic-bezier(0.22, 0.8, 0.24, 1) both; }
+.toast-in { animation: toast-in 0.3s cubic-bezier(0.22, 0.8, 0.24, 1) both; }
+@media (max-width: 639px) {
+  .sheet-up { animation: sheet-up 0.38s cubic-bezier(0.22, 0.8, 0.24, 1) both; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-in, .toast-in, .sheet-up { animation: none; }
+}
+
+/* ── Palette joueur : noir chaud, rouge pour équilibrer, orange et bleu en accents ── */
+:root {
+  --night-bg: #0b0809;
+  --night-panel: #120e10;
+  --night-panel-2: #181215;
+  --night-input: #0e0a0c;
+  --night-line: rgba(255, 235, 230, 0.07);
+  --night-line-strong: rgba(255, 235, 230, 0.12);
+  --night-text: #ece4e0;
+  --night-muted: #b5aaa8;
+  --night-faint: #8f8485;
+  --night-red: #e5484f;
+  --night-red-deep: #8e1c24;
+  --night-orange: #ec9440;
+  --night-blue: #5fa0f2;
+}
+html, body { background-color: var(--night-bg); color: var(--night-text); }
+
+/* ── Bannière du personnage : blason vivant, reflet, braises ── */
+@keyframes crest-breathe {
+  0%, 100% { opacity: 0.55; box-shadow: 0 0 22px var(--clan-glow), inset 0 0 12px var(--clan-glow); }
+  50% { opacity: 1; box-shadow: 0 0 40px var(--clan-glow), inset 0 0 18px var(--clan-glow); }
+}
+@keyframes crest-spin { from { transform: rotate(45deg); } to { transform: rotate(405deg); } }
+@keyframes crest-spin-rev { from { transform: rotate(45deg); } to { transform: rotate(-315deg); } }
+@keyframes banner-sheen {
+  from { transform: translateX(-60%) skewX(-18deg); opacity: 0; }
+  20% { opacity: 1; }
+  to { transform: translateX(260%) skewX(-18deg); opacity: 0; }
+}
+@keyframes ember-rise {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  15% { opacity: 0.9; }
+  100% { transform: translate(var(--dx, 6px), -84px) scale(0.4); opacity: 0; }
+}
+.crest-breathe { animation: crest-breathe 4.5s ease-in-out infinite; }
+.crest-spin { animation: crest-spin 60s linear infinite; }
+.crest-spin-rev { animation: crest-spin-rev 90s linear infinite; }
+.banner-sheen { animation: banner-sheen 1.8s cubic-bezier(0.22, 0.8, 0.24, 1) 0.35s both; }
+.ember { opacity: 0; animation: ember-rise 4.8s ease-out infinite both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .crest-breathe, .crest-spin, .crest-spin-rev, .banner-sheen, .ember { animation: none; }
+  .ember, .banner-sheen { display: none; }
+}
+
+/* Rangées qui défilent sans afficher de barre (onglets de navigation). */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Contour de focus : rouge discret au clavier, rien au clic de souris. */
+:focus:not(:focus-visible) { outline: none; }
+:focus-visible { outline: 1.5px solid rgba(229, 72, 79, 0.6); outline-offset: 2px; }
+/* Les champs de saisie ont déjà leur bordure de focus : pas de second contour. */
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline: none; }

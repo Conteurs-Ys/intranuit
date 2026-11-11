@@ -1,0 +1,68 @@
+# Exemple documentaire : copier dans .github/workflows/deploy-pages.yml
+# sur le dépôt préparé de la nouvelle association. Rien n'est activé ici.
+name: Publier Intranuit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      VITE_FIREBASE_API_KEY: ${{ vars.VITE_FIREBASE_API_KEY }}
+      VITE_FIREBASE_AUTH_DOMAIN: ${{ vars.VITE_FIREBASE_AUTH_DOMAIN }}
+      VITE_FIREBASE_PROJECT_ID: ${{ vars.VITE_FIREBASE_PROJECT_ID }}
+      VITE_FIREBASE_STORAGE_BUCKET: ${{ vars.VITE_FIREBASE_STORAGE_BUCKET }}
+      VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ vars.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+      VITE_FIREBASE_APP_ID: ${{ vars.VITE_FIREBASE_APP_ID }}
+      VITE_APP_ID: ${{ vars.VITE_APP_ID }}
+      VITE_INSTANCE_CITY: ${{ vars.VITE_INSTANCE_CITY }}
+      VITE_INSTANCE_CHRONICLE: ${{ vars.VITE_INSTANCE_CHRONICLE }}
+      VITE_ORIGINAL_INSTANCE: 'false'
+      VITE_USE_EMULATORS: 'false'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Installer les dépendances
+        run: npm ci
+      - name: Vérifier les valeurs indispensables
+        shell: bash
+        run: |
+          for key in VITE_FIREBASE_API_KEY VITE_FIREBASE_AUTH_DOMAIN VITE_FIREBASE_PROJECT_ID VITE_FIREBASE_APP_ID VITE_APP_ID; do
+            if [ -z "${!key}" ]; then
+              echo "Variable manquante : $key"
+              exit 1
+            fi
+          done
+      - name: Construire
+        run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publier
+        id: deployment
+        uses: actions/deploy-pages@v4
