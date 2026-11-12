@@ -134,7 +134,7 @@ export default function AuthGate() {
         {/* Logo */}
         <div className="relative flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #3b0a0a, #1a0505)', border: '1px solid rgba(153,27,27,0.3)', boxShadow: '0 0 15px rgba(153,27,27,0.2)' }}>
+            style={{ background: 'linear-gradient(135deg, #3b0a0a, #1a0505)', border: '1px solid rgba(139,38,53,0.3)', boxShadow: '0 0 15px rgba(139,38,53,0.2)' }}>
             <Moon size={15} className="text-red-700" />
           </div>
           <div>
@@ -145,7 +145,7 @@ export default function AuthGate() {
 
         {/* Citation aléatoire */}
         <div className="relative">
-          <div className="w-8 h-px mb-8" style={{ background: 'rgba(153,27,27,0.5)' }} />
+          <div className="w-8 h-px mb-8" style={{ background: 'rgba(139,38,53,0.5)' }} />
 
           {/* Guillemet décoratif */}
           <div className="font-serif text-red-400/80 leading-none mb-3 select-none"
@@ -154,18 +154,18 @@ export default function AuthGate() {
           </div>
 
           <p className="font-serif italic leading-relaxed text-zinc-200"
-            style={{ fontSize: '1.35rem', fontWeight: 700, lineHeight: 1.4, textShadow: '0 0 40px rgba(153,27,27,0.15)' }}>
+            style={{ fontSize: '1.35rem', fontWeight: 700, lineHeight: 1.4, textShadow: '0 0 40px rgba(139,38,53,0.15)' }}>
             {citation.texte}
           </p>
 
           <div className="mt-6 space-y-0.5">
-            <div className="w-6 h-px" style={{ background: 'rgba(153,27,27,0.4)' }} />
+            <div className="w-6 h-px" style={{ background: 'rgba(139,38,53,0.4)' }} />
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-200 pt-2">
               {citation.source}
             </p>
             {citation.clan && (
               <p className="text-[11px] font-bold uppercase tracking-[0.16em]"
-                style={{ color: 'rgba(153,27,27,0.6)' }}>
+                style={{ color: 'rgba(139,38,53,0.6)' }}>
                 Clan {citation.clan}
               </p>
             )}
@@ -191,7 +191,7 @@ export default function AuthGate() {
           {/* Logo mobile */}
           <div className="lg:hidden flex items-center gap-3 mb-10 justify-center">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, #3b0a0a, #1a0505)', border: '1px solid rgba(153,27,27,0.3)' }}>
+              style={{ background: 'linear-gradient(135deg, #3b0a0a, #1a0505)', border: '1px solid rgba(139,38,53,0.3)' }}>
               <Moon size={15} className="text-red-700" />
             </div>
             <span className="font-serif text-lg font-bold text-zinc-200 italic">Intranuit{identity.city && <span className="text-red-400"> · {identity.city}</span>}</span>
@@ -199,7 +199,7 @@ export default function AuthGate() {
 
           <div className="mb-8">
             <h1 className="font-serif text-3xl font-bold text-[#ece4e0] italic leading-none"
-              style={{ textShadow: '0 0 30px rgba(153,27,27,0.12)' }}>
+              style={{ textShadow: '0 0 30px rgba(139,38,53,0.12)' }}>
               {isReset ? 'Réinitialiser le mot de passe' : isRegister ? "Rejoindre le Cercle" : "Ouvrir les Archives"}
             </h1>
           </div>
@@ -210,7 +210,7 @@ export default function AuthGate() {
 
             {isRegister && (
               <div className="space-y-4 pt-5 animate-in fade-in slide-in-from-bottom-2 duration-400">
-                <div className="h-px" style={{ background: 'linear-gradient(to right, rgba(153,27,27,0.2), transparent)' }} />
+                <div className="h-px" style={{ background: 'linear-gradient(to right, rgba(139,38,53,0.2), transparent)' }} />
                 <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-200 pt-1">Identité vampirique</div>
                 <div className="grid grid-cols-2 gap-3">
                   <AuthField label="Pseudo joueur" icon={<User size={13}/>} value={form.pseudo} onChange={v => setForm({ ...form, pseudo: v })} />
@@ -232,7 +232,7 @@ export default function AuthGate() {
 
             {error && (
               <div className="px-4 py-3 rounded-xl text-[11px] font-bold uppercase tracking-widest text-red-400 animate-in fade-in duration-200"
-                style={{ background: 'rgba(153,27,27,0.08)', border: '1px solid rgba(153,27,27,0.2)' }}>
+                style={{ background: 'rgba(139,38,53,0.08)', border: '1px solid rgba(139,38,53,0.2)' }}>
                 {error}
               </div>
             )}
@@ -242,9 +242,9 @@ export default function AuthGate() {
               <button type="submit" disabled={loading}
                 className="w-full py-4 rounded-xl font-bold text-[11px] uppercase tracking-[0.22em] transition-all disabled:opacity-40 hover:scale-[1.01] active:scale-[0.99]"
                 style={{
-                  background: loading ? 'rgba(153,27,27,0.3)' : 'linear-gradient(135deg, rgba(153,27,27,0.7), rgba(100,10,10,0.9))',
-                  border: '1px solid rgba(153,27,27,0.3)', color: '#fca5a5',
-                  boxShadow: '0 4px 24px rgba(153,27,27,0.12)',
+                  background: loading ? 'rgba(139,38,53,0.3)' : 'linear-gradient(135deg, rgba(139,38,53,0.7), rgba(86,26,36,0.9))',
+                  border: '1px solid rgba(139,38,53,0.3)', color: '#ecbcc6',
+                  boxShadow: '0 4px 24px rgba(139,38,53,0.12)',
                 }}>
                 {loading ? "En cours…" : isReset ? 'Envoyer le lien' : isRegister ? "Sceller le Pacte" : "Entrer dans les Ombres"}
               </button>

@@ -232,7 +232,7 @@ export default function Archives({ myAIPs, myInfluences, profile, onOpenDetail }
           style={{
             transform: isAIP ? 'translateX(0)' : 'translateX(100%)',
             transitionTimingFunction: 'cubic-bezier(0.22, 0.8, 0.24, 1)',
-            background: isAIP ? 'linear-gradient(135deg, rgba(153,27,27,0.55), rgba(100,10,10,0.7))' : 'linear-gradient(135deg, rgba(180,100,30,0.45), rgba(110,55,10,0.6))',
+            background: isAIP ? 'linear-gradient(135deg, rgba(139,38,53,0.55), rgba(86,26,36,0.7))' : 'linear-gradient(135deg, rgba(180,100,30,0.45), rgba(110,55,10,0.6))',
             border: `1px solid ${isAIP ? 'rgba(229,72,79,0.4)' : 'rgba(236,148,64,0.4)'}`,
           }} />
         {[{ id: 'aip', label: 'Mes AIP', icon: Feather, n: counts.aip }, { id: 'influences', label: 'Mes influences', icon: Eye, n: counts.influences }].map(t => (

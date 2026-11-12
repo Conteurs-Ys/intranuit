@@ -19,7 +19,7 @@ export default function PendingScreen({ user, rejected = false, deleted = false 
         {/* Logo */}
         <div className="flex items-center justify-center gap-3">
           <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #3b0a0a, #1a0505)', border: '1px solid rgba(153,27,27,0.3)', boxShadow: '0 0 20px rgba(153,27,27,0.15)' }}>
+            style={{ background: 'linear-gradient(135deg, #3b0a0a, #1a0505)', border: '1px solid rgba(139,38,53,0.3)', boxShadow: '0 0 20px rgba(139,38,53,0.15)' }}>
             <Moon size={18} className="text-red-700" />
           </div>
           <span className="font-serif text-xl font-bold text-zinc-300 italic">Intranuit{identity.city && <span className="text-red-400"> · {identity.city}</span>}</span>

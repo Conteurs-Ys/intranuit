@@ -76,7 +76,7 @@ export function ObstructionTargetCell({ item, onSave }) {
               <button type="button" onClick={() => setOpen(false)} className="px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em]" style={{ color: theme.textSecondary }}>Annuler</button>
               <button type="button" disabled={obstructionTarget(draft).target !== 'rumeurs' && !obstructionTarget(draft).text.trim()} onClick={async () => { await onSave(cleanTarget({ ...draft, obstructionTarget: obstructionTarget(draft).target === 'rumeurs' ? 'rumeurs' : 'autre' })); setOpen(false); }}
                 className="disabled:opacity-40 px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-[0.16em]"
-                style={{ background: 'linear-gradient(135deg, rgba(153,27,27,.75), rgba(100,10,10,.92))', color: '#fca5a5' }}>Enregistrer</button>
+                style={{ background: 'linear-gradient(135deg, rgba(139,38,53,.75), rgba(86,26,36,.92))', color: '#ecbcc6' }}>Enregistrer</button>
             </div>
           </div>
         </div>

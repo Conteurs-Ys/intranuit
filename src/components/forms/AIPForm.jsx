@@ -95,7 +95,7 @@ export default function AIPForm({ initialData, cycle, onSubmit, onCancel, direct
             {cycle.label}
           </div>
           <h2 className="font-serif text-3xl font-bold text-[#ece4e0] italic leading-none"
-            style={{ textShadow: '0 0 30px rgba(153,27,27,0.15)' }}>
+            style={{ textShadow: '0 0 30px rgba(139,38,53,0.15)' }}>
             Actions du Cycle
           </h2>
         </div>

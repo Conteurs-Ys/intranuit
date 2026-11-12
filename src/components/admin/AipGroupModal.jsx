@@ -122,7 +122,7 @@ export default function AipGroupModal({ group, rows, color, onClose, onUpdateGro
           {saved && !changed.length && <span role="status" className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: light ? '#276344' : '#9fd8b8' }}><Check size={13} /> Enregistré</span>}
           <button type="button" onClick={save} disabled={saving}
             className="ml-auto px-5 py-2.5 rounded-lg text-[10px] font-bold uppercase tracking-[0.16em] disabled:opacity-50"
-            style={{ background: 'linear-gradient(135deg, rgba(153,27,27,.75), rgba(100,10,10,.92))', color: '#fca5a5' }}>
+            style={{ background: 'linear-gradient(135deg, rgba(139,38,53,.75), rgba(86,26,36,.92))', color: '#ecbcc6' }}>
             {saving ? 'Enregistrement…' : changed.length ? `Enregistrer (${changed.length} sentence${changed.length > 1 ? 's' : ''})` : 'Enregistrer'}
           </button>
         </footer>

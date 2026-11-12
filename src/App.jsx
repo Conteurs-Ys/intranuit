@@ -249,7 +249,7 @@ function AppContent() {
   if (loading) return (
     <div className="min-h-screen bg-[#020202] flex items-center justify-center">
       <div className="flex flex-col items-center space-y-6">
-        <Moon size={36} className="text-red-400/80 animate-pulse" style={{ filter: 'drop-shadow(0 0 20px rgba(153,27,27,0.6))' }} />
+        <Moon size={36} className="text-red-400/80 animate-pulse" style={{ filter: 'drop-shadow(0 0 20px rgba(139,38,53,0.6))' }} />
         <span className="text-[11px] font-bold tracking-[0.25em] text-red-400/80 uppercase">Ouverture du Registre</span>
       </div>
     </div>
@@ -261,7 +261,7 @@ function AppContent() {
   // Fond global selon thème — sombre pour joueurs, adaptatif pour staff
   const appBg = isLight && isStaff
     ? theme.bg
-    : 'radial-gradient(ellipse 70% 45% at 50% 0, rgba(150,22,32,0.34), transparent 75%), #0b0809';
+    : 'radial-gradient(ellipse 70% 45% at 50% 0, rgba(139,38,53,0.30), transparent 75%), var(--night-bg)';
 
   const navBg = isLight && isStaff
     ? 'rgba(244,241,236,0.92)'
@@ -433,7 +433,7 @@ function AppContent() {
                 className="relative flex-1 min-w-0 flex flex-col items-center justify-center gap-1 h-16 transition-colors"
                 style={{ color: active ? '#ef4444' : '#8b8b94' }}>
                 <span className="flex items-center justify-center w-12 h-7 rounded-full transition-all duration-300"
-                  style={{ background: active ? 'rgba(153,27,27,0.22)' : 'transparent', boxShadow: active ? '0 0 14px rgba(153,27,27,0.25)' : 'none' }}>
+                  style={{ background: active ? 'rgba(139,38,53,0.22)' : 'transparent', boxShadow: active ? '0 0 14px rgba(139,38,53,0.25)' : 'none' }}>
                   <Icon size={18} />
                 </span>
                 <span className="max-w-full truncate px-0.5 text-[9.5px] min-[380px]:text-[10px] font-bold uppercase tracking-[0.04em]">{label}</span>
@@ -451,8 +451,8 @@ function AppContent() {
             style={{
               background: 'rgba(18,14,16,0.96)',
               border: `1px solid ${toast.tone === 'error' ? 'rgba(239,68,68,0.35)' : 'rgba(16,185,129,0.3)'}`,
-              color: toast.tone === 'error' ? '#fca5a5' : '#ece4e0',
-              boxShadow: `0 10px 40px rgba(18,14,16,0.6), 0 0 24px ${toast.tone === 'error' ? 'rgba(153,27,27,0.2)' : 'rgba(16,185,129,0.12)'}`,
+              color: toast.tone === 'error' ? '#ecbcc6' : '#ece4e0',
+              boxShadow: `0 10px 40px rgba(18,14,16,0.6), 0 0 24px ${toast.tone === 'error' ? 'rgba(139,38,53,0.2)' : 'rgba(16,185,129,0.12)'}`,
             }}>
             {toast.tone === 'error'
               ? <AlertTriangle size={16} className="text-red-500" />

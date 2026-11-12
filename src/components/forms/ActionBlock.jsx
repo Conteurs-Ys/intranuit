@@ -38,8 +38,8 @@ export default function ActionBlock({ num, data, type, onChange, onRemove, direc
   const isOther = data.bonusType === 'Autre';
 
   const accentColor = isBase ? '#ef4444' : isIT ? '#5fa0f2' : isOther ? '#d9b26a' : '#c2b3e6';
-  const accentBg = isBase ? 'rgba(153,27,27,0.12)' : isIT ? 'rgba(95,160,242,0.1)' : isOther ? 'rgba(217,178,106,0.1)' : 'rgba(169,149,216,0.1)';
-  const accentBorder = isBase ? 'rgba(153,27,27,0.2)' : isIT ? 'rgba(95,160,242,0.22)' : isOther ? 'rgba(217,178,106,0.24)' : 'rgba(169,149,216,0.22)';
+  const accentBg = isBase ? 'rgba(139,38,53,0.12)' : isIT ? 'rgba(95,160,242,0.1)' : isOther ? 'rgba(217,178,106,0.1)' : 'rgba(169,149,216,0.1)';
+  const accentBorder = isBase ? 'rgba(139,38,53,0.2)' : isIT ? 'rgba(95,160,242,0.22)' : isOther ? 'rgba(217,178,106,0.24)' : 'rgba(169,149,216,0.22)';
 
   const icon = isBase ? <Scroll size={14}/> : isIT ? <Cpu size={14}/> : isOther ? <Gift size={14}/> : <Beaker size={14}/>;
 

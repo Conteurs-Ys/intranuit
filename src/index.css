@@ -34,9 +34,9 @@
 /* Défilement : même palette sur les deux axes, y compris l'angle des tableaux. */
 :root {
   color-scheme: dark;
-  --scroll-track: #120e10;
-  --scroll-thumb: #6b3035;
-  --scroll-hover: #99454c;
+  --scroll-track: #1c1917;
+  --scroll-thumb: #5a2a35;
+  --scroll-hover: #8b2635;
 }
 :root:has([data-interface-theme="light"]) {
   color-scheme: light;
@@ -97,17 +97,17 @@
 
 /* ── Palette joueur : noir chaud, rouge pour équilibrer, orange et bleu en accents ── */
 :root {
-  --night-bg: #0b0809;
-  --night-panel: #120e10;
-  --night-panel-2: #181215;
-  --night-input: #0e0a0c;
+  --night-bg: #1c1917;
+  --night-panel: #2a1d26;
+  --night-panel-2: #33232e;
+  --night-input: #1f161c;
   --night-line: rgba(255, 235, 230, 0.07);
   --night-line-strong: rgba(255, 235, 230, 0.12);
-  --night-text: #ece4e0;
-  --night-muted: #b5aaa8;
-  --night-faint: #8f8485;
-  --night-red: #e5484f;
-  --night-red-deep: #8e1c24;
+  --night-text: #ede6d6;
+  --night-muted: #b8ad9c;
+  --night-faint: #8f8578;
+  --night-red: #c25566;
+  --night-red-deep: #8b2635;
   --night-orange: #ec9440;
   --night-blue: #5fa0f2;
 }
@@ -150,3 +150,29 @@ html, body { background-color: var(--night-bg); color: var(--night-text); }
 :focus-visible { outline: 1.5px solid rgba(229, 72, 79, 0.6); outline-offset: 2px; }
 /* Les champs de saisie ont déjà leur bordure de focus : pas de second contour. */
 input:focus-visible, textarea:focus-visible, select:focus-visible { outline: none; }
+
+/* ── Thème charbon/prune : redéfinit les palettes Tailwind utilisées en dur ── */
+@theme {
+  --color-red-50:  #fbf1f3;
+  --color-red-100: #f5dde2;
+  --color-red-200: #ecbcc6;
+  --color-red-300: #e095a4;
+  --color-red-400: #d06e82;
+  --color-red-500: #c25566;
+  --color-red-600: #a63d50;
+  --color-red-700: #8b2635;
+  --color-red-800: #6e1f2b;
+  --color-red-900: #561a24;
+  --color-red-950: #320c13;
+
+  --color-zinc-100: #f3eee4;
+  --color-zinc-200: #ede6d6;
+  --color-zinc-300: #d6cdbd;
+  --color-zinc-400: #b8ad9c;
+  --color-zinc-500: #8f8578;
+  --color-zinc-600: #6b6158;
+  --color-zinc-700: #4a3f45;
+  --color-zinc-800: #33232e;
+  --color-zinc-900: #2a1d26;
+  --color-zinc-950: #1c1917;
+}

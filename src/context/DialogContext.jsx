@@ -49,7 +49,7 @@ function ThemedDialog({ dialog, onClose }) {
         {!notice && <button type="button" data-initial-focus onClick={() => onClose(false)} className="px-4 py-2.5 rounded-lg text-[10px] font-bold uppercase tracking-[0.14em]" style={{ color: theme.textSecondary, border: `1px solid ${theme.borderStrong}` }}>Annuler</button>}
         <button type="button" data-initial-focus={notice ? '' : undefined} onClick={() => onClose(true)}
           className="px-4 py-2.5 rounded-lg text-[10px] font-bold uppercase tracking-[0.14em]"
-          style={{ color: light ? '#a5222a' : '#fca5a5', background: 'rgba(153,27,27,0.14)', border: '1px solid rgba(185,28,28,0.5)' }}>{confirmLabel || (notice ? 'Fermer' : danger ? 'Supprimer' : 'Confirmer')}</button>
+          style={{ color: light ? '#a5222a' : '#ecbcc6', background: 'rgba(139,38,53,0.14)', border: '1px solid rgba(185,28,28,0.5)' }}>{confirmLabel || (notice ? 'Fermer' : danger ? 'Supprimer' : 'Confirmer')}</button>
       </footer>
     </section>
   </div>, document.body);

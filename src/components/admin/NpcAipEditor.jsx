@@ -100,7 +100,7 @@ export default function NpcAipEditor({ appId, antag, month }) {
         </button>
         <button type="button" onClick={save} disabled={saving || !dirty}
           className="ml-auto px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-[0.16em] disabled:opacity-40"
-          style={{ background: 'linear-gradient(135deg, rgba(153,27,27,.75), rgba(100,10,10,.92))', color: '#fca5a5' }}>
+          style={{ background: 'linear-gradient(135deg, rgba(139,38,53,.75), rgba(86,26,36,.92))', color: '#ecbcc6' }}>
           {saving ? 'Enregistrement…' : 'Enregistrer les AIP'}
         </button>
       </div>

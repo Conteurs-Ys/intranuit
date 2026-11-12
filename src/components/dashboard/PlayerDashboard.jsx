@@ -23,7 +23,7 @@ export function RedButton({ children, onClick, variant = 'primary', disabled, ty
     <button type={type} onClick={onClick} disabled={disabled}
       className={`group inline-flex items-center justify-center gap-2 h-10 px-4 rounded-lg text-[11px] font-bold uppercase tracking-[0.16em] transition-[filter,background-color,border-color] duration-200 hover:brightness-125 disabled:opacity-40 disabled:pointer-events-none ${className}`}
       style={primary
-        ? { background: 'linear-gradient(135deg, rgba(153,27,27,0.75), rgba(100,10,10,0.92))', border: '1px solid rgba(185,28,28,0.45)', color: '#fca5a5' }
+        ? { background: 'linear-gradient(135deg, rgba(139,38,53,0.75), rgba(86,26,36,0.92))', border: '1px solid rgba(185,28,28,0.45)', color: '#ecbcc6' }
         : { background: 'transparent', border: '1px solid var(--night-line-strong)', color: 'var(--night-text)' }}>
       {children}
     </button>
