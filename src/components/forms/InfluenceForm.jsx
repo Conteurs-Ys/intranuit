@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronDown, Plus, Shield, Skull } from 'lucide-react';
+import { ChevronLeft, ChevronDown, Plus, Shield, Skull, Crown } from 'lucide-react';
 import SelectInput from '../ui/SelectInput';
 import ThemedSelect from '../ui/ThemedSelect';
 import LevelLabel, { levelText } from '../ui/LevelLabel';
@@ -20,6 +20,7 @@ import {
   ACTIONS_CIBLEES,
 } from '../../constants';
 import { profileRumorSpecs, withProfileRumorSpecs, rumorsMissingSpecs } from '../../utils/rumors';
+import { actingLieutenant, parangonBonus, lieutenantSheet, lieutenantSummary } from '../../utils/lieutenant';
 
 const EMPTY_ACTION = (category, sheet) => ({
   id: Date.now() + Math.random(),
@@ -333,6 +334,10 @@ function ActionInfluenceBlock({ data, onChange, onRemove, mySpecs = [], director
                       options={directory.map(d => ({ value: d.name, label: d.name }))} />
                   </div>
                 )}
+                <div className="col-span-2">
+                  <FieldLabel>Influence soutenue</FieldLabel>
+                  <StyledInput value={data.supportedInfluence || ''} onChange={v => onChange('supportedInfluence', v)} placeholder="Ex. le réseau Port autonome (facultatif)" />
+                </div>
               </div>
             </div>
           )}
@@ -408,7 +413,7 @@ function ActionInfluenceBlock({ data, onChange, onRemove, mySpecs = [], director
   );
 }
 
-function SectionHeader({ icon: Icon, label, accentColor, onAdd, addLabel }) {
+function SectionHeader({ icon: Icon, label, note, accentColor, onAdd, addLabel }) {
   return (
     <div className="flex items-center justify-between py-3"
       style={{ borderBottom: `1px solid ${accentColor}15` }}>
@@ -417,6 +422,7 @@ function SectionHeader({ icon: Icon, label, accentColor, onAdd, addLabel }) {
         <span className="text-[11px] font-bold uppercase tracking-[0.25em]" style={{ color: accentColor + '80' }}>
           {label}
         </span>
+        {note && <span className="text-[11.5px]" style={{ color: 'var(--night-muted)' }}>{note}</span>}
       </div>
       <button type="button" onClick={onAdd}
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] uppercase font-bold tracking-widest transition-all"
@@ -444,27 +450,46 @@ function specOptions(mySpecs) {
 export default function InfluenceForm({ initialData, cycle, character, onSubmit, onCancel, directory = [] }) {
   const sheet = sheetOf(character);
   const [gothaActions, setGothaActions] = useState(
-    initialData?.actions?.filter(a => a.category === 'gotha') || []
+    initialData?.actions?.filter(a => a.category === 'gotha' && !a.byLieutenant) || []
   );
   const [pegreActions, setPegreActions] = useState(
-    initialData?.actions?.filter(a => a.category === 'pegre') || []
+    initialData?.actions?.filter(a => a.category === 'pegre' && !a.byLieutenant) || []
   );
+  // Parangon : +1 action par influence, et les actions du lieutenant (son influence, ses spécialités).
+  const bonus = parangonBonus(character, sheet);
+  const lieutenant = actingLieutenant(character, sheet);
+  const ltSheet = lieutenant ? lieutenantSheet(lieutenant) : null;
+  const [ltActions, setLtActions] = useState(initialData?.actions?.filter(a => a.byLieutenant) || []);
+  const levelNote = (category) => {
+    const level = parseInt(sheet[category]?.level, 10) || 0;
+    if (!level) return '';
+    return bonus[category] ? `${level} + 1 action (Parangon)` : `${level} action${level > 1 ? 's' : ''}`;
+  };
 
   const updateAction = (list, setList, id, field, value) => {
     setList(current => current.map(a => a.id === id ? { ...a, [field]: value } : a));
   };
 
   const missingSpecs = rumorsMissingSpecs([...gothaActions, ...pegreActions], sheet);
-  const missingActivity = [...gothaActions, ...pegreActions].some(missingObstructionActivity);
+  const ltMissingSpecs = ltSheet ? rumorsMissingSpecs(ltActions, ltSheet).length > 0 : false;
+  const missingActivity = [...gothaActions, ...pegreActions, ...ltActions].some(missingObstructionActivity);
+  const blocked = missingSpecs.length > 0 || ltMissingSpecs || missingActivity || (ltActions.length > 0 && !lieutenant);
 
   // Atouts du profil copiés sur les actions concernées (le conteur ne lit pas les profils).
   const dealer = character?.clan === 'Ravnos' && Boolean(sheet.transactionsLouches);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (missingSpecs.length || missingActivity) return;
-    const actions = withProfileRumorSpecs([...gothaActions, ...pegreActions], sheet).map(a => (
+    if (blocked) return;
+    const own = withProfileRumorSpecs([...gothaActions, ...pegreActions], sheet).map(a => (
       a.actionType === 'ciblée' && a.actionName === 'Attaque' ? { ...a, transactionsLouches: dealer } : a));
-    onSubmit({ actions });
+    const lt = lieutenant
+      ? withProfileRumorSpecs(ltActions, ltSheet).map(a => ({ ...a, category: lieutenant.category, byLieutenant: true, lieutenantName: lieutenant.name.trim() || 'Lieutenant' }))
+      : [];
+    onSubmit({
+      actions: [...own, ...lt],
+      parangon: bonus.gotha + bonus.pegre > 0 ? bonus : null,
+      lieutenant: lieutenant ? lieutenantSummary(lieutenant) : null,
+    });
   };
 
   return (
@@ -493,7 +518,7 @@ export default function InfluenceForm({ initialData, cycle, character, onSubmit,
         {/* Gotha */}
         <div className="space-y-4">
           <SectionHeader
-            icon={Shield} label="Gotha" accentColor="#d97706"
+            icon={Shield} label="Gotha" note={levelNote('gotha')} accentColor="#d97706"
             onAdd={() => setGothaActions([...gothaActions, EMPTY_ACTION('gotha', sheet)])}
             addLabel="Ajouter"
           />
@@ -513,7 +538,7 @@ export default function InfluenceForm({ initialData, cycle, character, onSubmit,
         {/* Pègre */}
         <div className="space-y-4">
           <SectionHeader
-            icon={Skull} label="Pègre" accentColor="#a995d8"
+            icon={Skull} label="Pègre" note={levelNote('pegre')} accentColor="#a995d8"
             onAdd={() => setPegreActions([...pegreActions, EMPTY_ACTION('pegre', sheet)])}
             addLabel="Ajouter"
           />
@@ -530,12 +555,36 @@ export default function InfluenceForm({ initialData, cycle, character, onSubmit,
           ))}
         </div>
 
+        {/* Lieutenant (Parangon) */}
+        {(lieutenant || ltActions.length > 0) && (
+          <div className="space-y-4">
+            <SectionHeader
+              icon={Crown} label={`Lieutenant${lieutenant?.name.trim() ? ` · ${lieutenant.name.trim()}` : ''}`} accentColor="#5b8ff0"
+              note={lieutenant ? `${lieutenant.category === 'gotha' ? 'Gotha' : 'Pègre'} ${lieutenant.level} · ${lieutenant.level} action${lieutenant.level > 1 ? 's' : ''}` : ''}
+              onAdd={() => lieutenant && setLtActions([...ltActions, { ...EMPTY_ACTION(lieutenant.category, ltSheet), byLieutenant: true }])}
+              addLabel="Ajouter"
+            />
+            {!lieutenant && <p role="alert" className="text-sm text-red-300">Ton profil n’a plus de lieutenant avec une influence : retire ses actions ou complète ton profil.</p>}
+            {ltActions.length === 0 ? (
+              <div className="py-10 text-center rounded-xl border border-dashed" style={{ borderColor: 'rgba(91,143,240,0.12)' }}>
+                <p className="font-serif italic text-zinc-400 text-sm">Aucune action du lieutenant ce mois-ci.</p>
+              </div>
+            ) : ltActions.map(act => (
+              <ActionInfluenceBlock key={act.id} data={act} directory={directory} mySpecs={lieutenant?.specs || []} dealer={false}
+                onChange={(f, v) => updateAction(ltActions, setLtActions, act.id, f, v)}
+                onRemove={() => setLtActions(ltActions.filter(a => a.id !== act.id))}
+              />
+            ))}
+          </div>
+        )}
+
         {/* Submit */}
         {missingActivity && <p role="alert" className="text-sm text-red-300">Décris l’activité visée par chaque obstruction avant de soumettre.</p>}
         {missingSpecs.length > 0 && <p id="rumor-specs-required" role="alert" className="text-sm text-red-300">
           Pour soumettre une rumeur, renseigne d’abord tes spécialités {missingSpecs.map(c => CAT_NAME[c]).join(' et ')} dans ton profil.
         </p>}
-        <button type="submit" disabled={missingSpecs.length > 0 || missingActivity} aria-describedby={missingSpecs.length ? 'rumor-specs-required' : undefined}
+        {ltMissingSpecs && <p role="alert" className="text-sm text-red-300">Pour une rumeur de ton lieutenant, renseigne d’abord ses spécialités dans ton profil.</p>}
+        <button type="submit" disabled={blocked} aria-describedby={missingSpecs.length ? 'rumor-specs-required' : undefined}
           className="disabled:opacity-40 disabled:cursor-not-allowed w-full py-3.5 rounded-xl font-bold text-[11px] uppercase tracking-[0.25em] transition-all hover:opacity-80 active:scale-[0.99] flex items-center justify-center gap-3"
           style={{
             background: 'transparent',

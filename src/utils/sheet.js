@@ -1,5 +1,6 @@
 // Informations de jeu que le joueur renseigne dans son profil (pas une fiche validée) :
 // elles ne font que préremplir ses formulaires d'AIP et d'influences.
+import { emptyLieutenant, lieutenantOf } from './lieutenant.js';
 
 export const emptySheet = () => ({
   gotha: { level: 0, specs: [] },
@@ -8,6 +9,8 @@ export const emptySheet = () => ({
   troupeau: 0,
   monopoliste: false,
   transactionsLouches: false,
+  parangon: false,
+  lieutenant: emptyLieutenant(),
   sciences: [],
   bonuses: [],
   scores: [],
@@ -20,6 +23,7 @@ export const sheetOf = character => {
     sheet[category] = { level: 0, ...(saved[category] || {}), specs: Array.isArray(saved[category]?.specs) ? saved[category].specs : [] };
   }
   for (const field of ['sciences', 'bonuses', 'scores']) sheet[field] = Array.isArray(saved[field]) ? saved[field] : [];
+  sheet.lieutenant = lieutenantOf(saved);
   return sheet;
 };
 

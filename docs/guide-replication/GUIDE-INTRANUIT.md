@@ -45,7 +45,7 @@ Les joueurs n’ont pas accès aux dossiers des autres joueurs. Les membres peuv
 
 ## 3 La fiche du personnage et ses archives
 
-Le profil regroupe le pseudo du joueur, le nom du personnage, son clan, son allégeance, ses niveaux et spécialités Gotha/Pègre, ses bonus d’AIP, son Troupeau et des scores utiles pour ses actions. Ces informations servent à préremplir les formulaires.
+Le profil regroupe le pseudo du joueur, le nom du personnage, son clan, son allégeance, ses niveaux et spécialités Gotha/Pègre, ses bonus d’AIP, son Troupeau et des scores utiles pour ses actions. Les atouts d’influence s’y déclarent aussi : Monopoliste, Transactions louches (Ravnos) et Parangon (Ventrue), qui ajoute une action par influence et la fiche d’un lieutenant dont le joueur déclare les actions d’influence. Ces informations servent à préremplir les formulaires.
 
 ![Fiche déclarative du personnage](images/09-profil.jpg)
 
@@ -109,7 +109,7 @@ Un changement du contenu d’une activité invalide la correspondance et demande
 
 ### Les rumeurs et leur relecture
 
-Les actions La Rumeur et Potins alimentent des tableaux par catégorie et spécialité sur le mois courant et les deux mois joués précédents ; un mois sans cycle ne compte pas. Le joueur doit avoir des spécialités déclarées dans le profil pour soumettre une action de rumeur de cette catégorie. Les obstructions de rumeurs conservent un choix structuré : une spécialité ou l’ensemble des spécialités.
+Les actions La Rumeur et Potins alimentent des tableaux par catégorie et spécialité sur le mois courant et les deux mois joués précédents ; un mois sans cycle ne compte pas. Une action ciblée y apparaît par ce qu’elle a visé (domaine de rumeurs obstrué, activité, influence soutenue ou attaquée), jamais par son auteur ; sans relecture, seuls ses choix de listes sont diffusés. Les usages d’un lieutenant restent cachés à son propre joueur. Le joueur doit avoir des spécialités déclarées dans le profil pour soumettre une action de rumeur de cette catégorie. Les obstructions de rumeurs conservent un choix structuré : une spécialité ou l’ensemble des spécialités.
 
 ![Relecture des traces et préparation des rumeurs](images/04-rumeurs.jpg)
 

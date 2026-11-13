@@ -140,9 +140,16 @@ test('anonymisation : noms et prénoms masqués, sans toucher aux mots qui les c
 test("trace : préremplie sans nom ni nom d’action, à relire ; non relue, seule la formule neutre est diffusée", () => {
   const act = usage({ description: 'Bob fait relâcher Karl, son goule', targetCharacter: '' });
   assert.equal(traceDraft(act, ['Bob', 'Karl']), '[…] fait relâcher […], son goule');
-  assert.equal(traceDraft({ actionType: 'ciblée', actionName: 'Attaque', description: 'Ruiner Bob' }, ['Bob']), 'Une influence a été attaquée — Ruiner […]');
+  assert.equal(traceDraft({ actionType: 'ciblée', actionName: 'Attaque', category: 'pegre', description: 'Ruiner Bob' }, ['Bob']), 'Attaque contre une influence Pègre — Ruiner […]');
   assert.equal(traceDraft({ actionType: 'globale', actionName: 'Faveurs illégales', description: '' }), 'Usage de l’influence');
-  assert.equal(defaultTrace({ actionType: 'ciblée', actionName: 'Attaque' }), 'Une influence a été attaquée');
+  assert.equal(defaultTrace({ actionType: 'ciblée', actionName: 'Attaque', category: 'gotha', attackedCategory: 'pegre', targetDescription: 'le réseau de Bob' }), 'Attaque contre une influence Pègre');
+  assert.equal(traceDraft({ actionType: 'ciblée', actionName: 'Attaque', category: 'gotha', targetDescription: 'le réseau de Bob' }, ['Bob']), 'Attaque contre le réseau de […]');
+  assert.equal(defaultTrace({ actionType: 'ciblée', actionName: 'Obstruction', category: 'gotha', obstructedCategory: 'pegre', obstructionTarget: 'rumeurs', obstructionScope: 'Police' }), 'Obstruction des rumeurs Pègre : Police');
+  assert.equal(defaultTrace({ actionType: 'ciblée', actionName: 'Obstruction', category: 'pegre', obstructionTarget: 'rumeurs', obstructionScope: 'all' }), 'Obstruction des rumeurs Pègre : les 15 domaines');
+  assert.equal(defaultTrace({ actionType: 'ciblée', actionName: 'Obstruction', category: 'pegre', obstructionTarget: 'autre', obstructionText: 'armes de Bob' }), 'Obstruction d’une activité Pègre');
+  assert.equal(traceDraft({ actionType: 'ciblée', actionName: 'Obstruction', category: 'pegre', obstructionTarget: 'autre', obstructionText: 'armes de Bob' }, ['Bob']), 'Obstruction Pègre : armes de […]');
+  assert.equal(defaultTrace({ actionType: 'ciblée', actionName: 'Soutien', category: 'gotha', supportedInfluence: 'Port autonome' }), 'Soutien à une influence Gotha');
+  assert.equal(traceDraft({ actionType: 'ciblée', actionName: 'Soutien', category: 'gotha', supportedInfluence: 'Port autonome' }), 'Soutien à l’influence Port autonome');
   const b = dossier('Bob', 'bob', 'Octobre 2026', [act]);
   const t = buildRumorTable({ rumor: rumeur, dossier: ilse, dossiers: [ilse, b], names: ['Karl'] });
   assert.equal(t.toReview, 1);
@@ -304,4 +311,17 @@ test('tableau de rumeur : les usages d’avant le mois sauté remontent, ceux du
   const seed = { id: 's', category: 'pegre', specs: [], text: 'Rumeur d’octobre', from: '2026-10-01', to: '2026-10-31' };
   assert.equal(seedMonth(seed, { category: 'pegre', specs: ['Rue'], monthLabel: 'Novembre 2026', months: t.months }), null, 'le mois sauté n’existe pas pour les rumeurs de conteur');
   assert.equal(seedMonth({ ...seed, from: '2026-08-15', to: '2026-10-31' }, { category: 'pegre', specs: ['Rue'], monthLabel: 'Novembre 2026', months: t.months }), 'Septembre 2026');
+});
+
+test('lieutenant (Parangon) : ses actions restent cachées à son joueur, son nom est masqué pour les autres', () => {
+  const lt = usage({ byLieutenant: true, lieutenantName: 'Octave Marchetti', influenceName: 'Port autonome', description: 'Octave fait fermer les yeux aux douaniers.' });
+  const ilseLt = { ...ilse, actions: [rumeur, lt], lieutenant: { name: 'Octave Marchetti' } };
+  const autre = dossier('d-bo', 'bo', 'Octobre 2026', [{ ...rumeur, id: 'r2' }]);
+  const dossiers = [ilseLt, autre];
+  // Le joueur ne lit pas les usages de son propre lieutenant.
+  assert.equal(buildRumorTable({ rumor: rumeur, dossier: ilseLt, dossiers }).rows.filter(r => r.institution === 'Port autonome').length, 0);
+  // Un autre joueur les lit, sans le nom du lieutenant.
+  const row = buildRumorTable({ rumor: { ...rumeur, id: 'r2' }, dossier: autre, dossiers }).rows.find(r => r.institution === 'Port autonome');
+  assert.ok(row);
+  assert.ok(!row.draft.includes('Octave'));
 });

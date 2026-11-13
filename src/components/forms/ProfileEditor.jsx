@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeft, User, IdCard, Fingerprint, Shield, Skull, Plus, Trash2, Minus, Cpu, FlaskConical, Gift, Gauge, X, Droplet, Sparkles, Layers, Handshake, Users } from 'lucide-react';
+import { ChevronLeft, User, IdCard, Fingerprint, Shield, Skull, Plus, Trash2, Minus, Cpu, FlaskConical, Gift, Gauge, X, Droplet, Sparkles, Layers, Handshake, Users, Crown, Home, Coins } from 'lucide-react';
 import AuthField from '../ui/AuthField';
 import SelectInput from '../ui/SelectInput';
 import ThemedSelect from '../ui/ThemedSelect';
@@ -95,15 +95,15 @@ function AddButton({ onClick, children, color }) {
 }
 
 // Une catégorie d'influence : niveau (indicatif) et spécialités nommées, sans limite de nombre.
-function InfluenceBlock({ category, value, onChange }) {
+function InfluenceBlock({ category, value, onChange, title, hint, maxLevel = 5, maxSpecs }) {
   const isGotha = category === 'gotha';
   const color = isGotha ? '#ec9440' : '#a995d8';
   const specs = value.specs || [];
   const setSpecs = (next) => onChange({ ...value, specs: next });
   return (
-    <Section icon={isGotha ? Shield : Skull} title={isGotha ? 'Influence Gotha' : 'Influence Pègre'} color={color}
-      aside={<Stepper value={value.level} onChange={level => onChange({ ...value, level })} color={color} />}
-      hint={isGotha ? 'Haute société, institutions, finances…' : 'Rue, crime, trafics, bureaucratie corrompue…'}>
+    <Section icon={isGotha ? Shield : Skull} title={title || (isGotha ? 'Influence Gotha' : 'Influence Pègre')} color={color}
+      aside={<Stepper value={value.level} max={maxLevel} onChange={level => onChange({ ...value, level })} color={color} />}
+      hint={hint ?? (isGotha ? 'Haute société, institutions, finances…' : 'Rue, crime, trafics, bureaucratie corrompue…')}>
       {specs.length === 0 ? (
         <p className="text-[12.5px] italic" style={{ color: 'var(--night-faint)' }}>Aucune spécialité renseignée.</p>
       ) : (
@@ -121,7 +121,49 @@ function InfluenceBlock({ category, value, onChange }) {
           ))}
         </div>
       )}
-      <AddButton color={color} onClick={() => setSpecs([...specs, { spec: '', name: '' }])}>Ajouter une spécialité</AddButton>
+      {maxSpecs !== undefined && specs.length > maxSpecs && (
+        <p className="text-[12.5px]" style={{ color: '#f7a8ac' }}>
+          {maxSpecs ? `${maxSpecs} spécialité${maxSpecs > 1 ? 's' : ''} au plus à ce niveau : seules les ${maxSpecs > 1 ? `${maxSpecs} premières comptent` : 'la première compte'}.` : 'Aucune spécialité à ce niveau.'}
+        </p>
+      )}
+      {(maxSpecs === undefined || specs.length < maxSpecs) && (
+        <AddButton color={color} onClick={() => setSpecs([...specs, { spec: '', name: '' }])}>Ajouter une spécialité</AddButton>
+      )}
+    </Section>
+  );
+}
+
+// Lieutenant de l'atout Parangon : 3 historiques parmi Ressources, Havre, Troupeau et Influence, à 3, 2 et 1 points.
+// Son influence (Gotha ou Pègre) lui ouvre un bloc d'actions dans le formulaire d'influences.
+function LieutenantBlock({ value, onChange }) {
+  const set = (patch) => onChange({ ...value, ...patch });
+  const color = '#5b8ff0';
+  const row = (icon, label, field) => {
+    const Icon = icon;
+    return (
+      <div className="flex items-center justify-between gap-3">
+        <span className="flex items-center gap-2 text-[13px] text-zinc-200"><Icon size={14} style={{ color }} />{label}</span>
+        <Stepper value={value[field]} max={3} onChange={v => set({ [field]: v })} color={color} />
+      </div>
+    );
+  };
+  return (
+    <Section icon={Crown} title="Lieutenant (Parangon)" color={color}
+      hint="Nouveau-Né Ventrue joué par les conteurs. Il a 3 historiques parmi Ressources, Havre, Troupeau et Influence, à 3, 2 et 1 points. Tu déclares ses actions d'influence dans ton formulaire.">
+      <AuthField label="Nom du lieutenant" value={value.name} onChange={name => set({ name })} icon={<IdCard size={13} />} />
+      <div className="space-y-2">
+        {row(Coins, 'Ressources', 'ressources')}
+        {row(Home, 'Havre', 'havre')}
+        {row(Droplet, 'Troupeau', 'troupeau')}
+      </div>
+      <SelectInput label="Influence du lieutenant" value={value.category}
+        options={[{ value: '', label: 'Aucune' }, { value: 'gotha', label: 'Gotha' }, { value: 'pegre', label: 'Pègre' }]}
+        onChange={category => set({ category, ...(category ? {} : { level: 0, specs: [] }) })} />
+      {value.category && (
+        <InfluenceBlock category={value.category} value={value} maxLevel={3}
+          title={`Influence ${value.category === 'gotha' ? 'Gotha' : 'Pègre'} du lieutenant`} hint="Une spécialité par point d'influence." maxSpecs={Number(value.level) || 0}
+          onChange={next => set({ level: next.level, specs: next.specs })} />
+      )}
     </Section>
   );
 }
@@ -229,6 +271,7 @@ export default function ProfileEditor({ data, onSave, onCancel, onNewCharacter, 
       ...sheet,
       gotha: { ...sheet.gotha, specs: sheet.gotha.specs.filter(s => s.spec) },
       pegre: { ...sheet.pegre, specs: sheet.pegre.specs.filter(s => s.spec) },
+      lieutenant: { ...sheet.lieutenant, specs: sheet.lieutenant.specs.filter(s => s.spec) },
       bonuses: sheet.bonuses.filter(b => b.name.trim()),
       scores: sheet.scores.filter(s => s.name.trim()),
     };
@@ -281,7 +324,15 @@ export default function ProfileEditor({ data, onSave, onCancel, onNewCharacter, 
           <Toggle icon={Handshake} color="236,148,64" title="Transactions louches (Ravnos)" hint="Attaque : 1 action par niveau retiré au lieu de 2, dans la même catégorie"
             checked={sheet.transactionsLouches} onChange={transactionsLouches => set({ transactionsLouches })} />
         )}
+        {form.clan === 'Ventrue' && (
+          <Toggle icon={Crown} color="91,143,240" title="Parangon (Ventrue)" hint="+1 action dans chaque influence que tu possèdes, et un lieutenant"
+            checked={sheet.parangon} onChange={parangon => set({ parangon })} />
+        )}
       </Section>
+
+      {form.clan === 'Ventrue' && sheet.parangon && (
+        <LieutenantBlock value={sheet.lieutenant} onChange={lieutenant => set({ lieutenant })} />
+      )}
 
       {/* Actions bonus */}
       <Section icon={Gift} title="Actions bonus" color="#d9b26a"

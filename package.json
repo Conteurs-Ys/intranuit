@@ -1,7 +1,7 @@
 {
   "name": "intranuit",
   "private": true,
-  "version": "1.0.0-replicable.20261103.2",
+  "version": "1.0.0-replicable.20261113",
   "type": "module",
   "scripts": {
     "dev": "vite",

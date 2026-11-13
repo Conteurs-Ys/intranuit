@@ -1,6 +1,8 @@
 # Intranuit réplicable
 
-Version conservée du 3 novembre 2026 (livraison n° 2 du jour), indépendante des évolutions de l’instance d’origine.
+Version conservée du 13 novembre 2026, indépendante des évolutions de l’instance d’origine.
+
+**Déjà installé ?** Les nouveautés de cette livraison et la marche à suivre pour mettre à jour votre site sans toucher à vos données sont dans [MISE-A-JOUR.md](MISE-A-JOUR.md).
 
 ## Ce que contient cette copie
 
