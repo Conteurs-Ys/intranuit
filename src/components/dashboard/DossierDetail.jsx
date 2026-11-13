@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X, Feather, Eye, MapPin, Shield, Skull, Hourglass, Users, ScrollText, Target, Gauge, Droplet } from 'lucide-react';
+import { X, Feather, Eye, MapPin, Shield, Skull, Hourglass, Users, ScrollText, Target, Gauge, Droplet, Crown } from 'lucide-react';
 import { feedingStatus } from '../../utils/feeding';
 import StatePill from '../ui/StatePill';
 import { dossierState, hasAnswers } from '../../utils/dossierState';
@@ -168,6 +168,7 @@ function InfluenceList({ influence, showAnswer }) {
       </span>} text={a.description}
         tags={<>
           <Tag icon={gotha ? Shield : Skull} color={color}>{gotha ? 'Gotha' : 'Pègre'}</Tag>
+          {a.byLieutenant && <Tag icon={Crown} color="#5b8ff0">Lieutenant · {a.lieutenantName || '—'}</Tag>}
           <Tag color="var(--night-muted)">{a.actionType === 'ciblée' ? 'Ciblée' : 'Globale'}</Tag>
           <Tag color="var(--night-muted)">{a.actionsSpent || 1} pt{(a.actionsSpent || 1) > 1 ? 's' : ''}{a.specialization ? ` · ${a.specialization}` : ''}</Tag>
         </>}

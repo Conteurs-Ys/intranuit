@@ -1,7 +1,7 @@
 {
-  "name": "intranuit-replicable-2026-11-03-2",
-  "version": "1.0.0-replicable.20261103.2",
-  "date": "2026-11-03",
+  "name": "intranuit-replicable-2026-11-13",
+  "version": "1.0.0-replicable.20261113",
+  "date": "2026-11-13",
   "variant": "replicable",
   "originalInstance": false,
   "containsProductionData": false,
@@ -24,24 +24,29 @@
       "sha256": "df38444b874e8a22115e24ab8b3e4384a646b391ffd01b012ec344d4711d3204"
     },
     {
+      "path": "MISE-A-JOUR.md",
+      "bytes": 3890,
+      "sha256": "75c04fc3098f1bb81e37ffdb9b2064baa11e285c9253576a8d027c0319fc4316"
+    },
+    {
       "path": "README.md",
-      "bytes": 4248,
-      "sha256": "7757f6efcaa5415f11efa95229c4cd2a3c568b95b345e96691bab37c166a3a4e"
+      "bytes": 4409,
+      "sha256": "ad6ec2dd3a879066e1492adad8e4b9c43041b32f2253bd6251e025cd1135bfc0"
     },
     {
       "path": "docs/Guide-Intranuit.pdf",
-      "bytes": 871111,
-      "sha256": "73a70dd6f03347bb9fc0f8d13de04d6b1e0850ae0cc8d069f51e4aba7ddb6bb6"
+      "bytes": 871324,
+      "sha256": "3683f5673f1764f6efdcc50dcfe0117feb79813d318590ae242b471428ef4614"
     },
     {
       "path": "docs/guide-replication/GUIDE-INTRANUIT.md",
-      "bytes": 38704,
-      "sha256": "1185c16dcb6b02ec491a24f7d3a1c17c46d4aae43858d3a65136a6ce07a4b094"
+      "bytes": 39217,
+      "sha256": "f98311967d240bcc87582ac065a299a8a470c8c700df2c490b96ec494d122de3"
     },
     {
       "path": "docs/guide-replication/Intranuit-presentation-et-installation.html",
-      "bytes": 1141006,
-      "sha256": "8216a6b80fb909cdb5ee44210903663022f27e0d2dcea1104f3221a41f1895c6"
+      "bytes": 1141519,
+      "sha256": "138c5627aab06569b09781c2463909fc0404c2d4762b6885e6aaf09f085fd4ae"
     },
     {
       "path": "docs/guide-replication/deploy-pages.yml.example",
@@ -140,13 +145,13 @@
     },
     {
       "path": "package-lock.json",
-      "bytes": 387849,
-      "sha256": "d2b7bfa9d81b8dcd08a5ac414d8b0aed617bf4277db52ff7f88ba5987c9a640c"
+      "bytes": 387845,
+      "sha256": "6f8c658813c55342f7d51237af07bcd2ae72995e4a8048ce0fe5c9e1ac525bfb"
     },
     {
       "path": "package.json",
-      "bytes": 953,
-      "sha256": "332120b7d313a5ed98d8fa990076862d447c2aa836c84b8a98da3723551d4a6c"
+      "bytes": 951,
+      "sha256": "3acd8c9a89bd6f68900bba549c3cd2f16bb5880ba4e213399ad9d44257d36980"
     },
     {
       "path": "postcss.config.js",
@@ -230,8 +235,8 @@
     },
     {
       "path": "src/components/admin/InfluenceControlPanel.jsx",
-      "bytes": 41313,
-      "sha256": "442863b3d39b1742ea11ea83acc3339795d15e94ae8930e01d9cb2e0bbc5d395"
+      "bytes": 41532,
+      "sha256": "5488efecbe2e2daba458527bcec1e697241666652c880f6244462d631f7d5cc9"
     },
     {
       "path": "src/components/admin/InstanceSettings.jsx",
@@ -315,8 +320,8 @@
     },
     {
       "path": "src/components/dashboard/DossierDetail.jsx",
-      "bytes": 15460,
-      "sha256": "15fb5b328544581b00bd336813e79d7435347f3dc30b0624e3e13b4aadf6eacb"
+      "bytes": 15580,
+      "sha256": "8743222c7c386ac57b458f720f60373cb8384a117dfbe4d677627b6dd1c4b01d"
     },
     {
       "path": "src/components/dashboard/InfluenceArchiveTable.jsx",
@@ -345,8 +350,8 @@
     },
     {
       "path": "src/components/forms/InfluenceForm.jsx",
-      "bytes": 30220,
-      "sha256": "8abac1a2c7c9afe1390f0ba8e62609ea11c20715d371a9e34fd88cb286fde00b"
+      "bytes": 34325,
+      "sha256": "56c167a48fdfae52d7c8592cd45970531372c15a10b02023edca98668c6fcf95"
     },
     {
       "path": "src/components/forms/LearningFields.jsx",
@@ -355,8 +360,8 @@
     },
     {
       "path": "src/components/forms/ProfileEditor.jsx",
-      "bytes": 21329,
-      "sha256": "f197dd8d9f4038865b16b456a79145160a5f6ac9ec2756a83f5b97c53216c8d3"
+      "bytes": 24481,
+      "sha256": "cb22554245733f2d537608f3698b7c768bade1b2d035bc3d8a0e400f5287b64f"
     },
     {
       "path": "src/components/forms/ProfilePrivacy.jsx",
@@ -649,6 +654,11 @@
       "sha256": "616eff042daea550b927faa34f900d7e9f3d646eb184c870ee5673d8e29e65bb"
     },
     {
+      "path": "src/utils/lieutenant.js",
+      "bytes": 2616,
+      "sha256": "ee14fa5837a94412e321f4a75175e7bfa93add38c9614823d18e6af3a00f95f8"
+    },
+    {
       "path": "src/utils/lists.js",
       "bytes": 2197,
       "sha256": "9b0b66078b97469706ec710d6392f3c5c31d2b912a0dac223637462f6e20a6ae"
@@ -670,8 +680,8 @@
     },
     {
       "path": "src/utils/rumors.js",
-      "bytes": 16292,
-      "sha256": "a4241f1e375cce196131d8694e68580f95e602d78e23c9963e71f030902a60d0"
+      "bytes": 17978,
+      "sha256": "bb25f530cb94854600ce1674bfeeb5c0b466711cbfd3cd8336c17d79d7d5e790"
     },
     {
       "path": "src/utils/saveObstructionLinks.js",
@@ -685,8 +695,8 @@
     },
     {
       "path": "src/utils/sheet.js",
-      "bytes": 919,
-      "sha256": "1c0695f8011dfcdc6cb67090685d7929408661af1e8eef8cb0baa8216043de46"
+      "bytes": 1108,
+      "sha256": "1e3fee3df14e2757a6c7559a9181c7a6c7d1ee2706892a4243208835916a3c22"
     },
     {
       "path": "src/utils/staffAIPExport.js",
@@ -795,13 +805,13 @@
     },
     {
       "path": "tests/rumors.test.js",
-      "bytes": 22869,
-      "sha256": "30988c2eddda1d3d8b637340a51cdfb91fd4369721ae5a471dc0888da5a9eb69"
+      "bytes": 25671,
+      "sha256": "3c64069489d1df96ee2eb62d0053f2201f42e7de123d1d01ac76f33e3e4d0e00"
     },
     {
       "path": "tests/sheet.test.js",
-      "bytes": 1138,
-      "sha256": "152bc109e8a193fb40155ca1ff15d7085f73979148d9a1d03897ddab5dd9a00b"
+      "bytes": 2610,
+      "sha256": "5518aace21c03ebe626d003127f3fb7a2f4d5c2ec072fab808f05646d9710880"
     },
     {
       "path": "tests/staffAIPExport.test.js",

@@ -10,7 +10,7 @@
 // - rumeurs de conteur : catégorie, spécialités facultatives (vide = toute la catégorie), période, texte ;
 // - obstruction : celle du cycle de la rumeur (voir obstruction.js), spécialité par spécialité.
 import { INFLUENCE_SPECIALIZATIONS, RUMEUR_ACTIONS } from '../constants/index.js';
-import { obstructionFor } from './obstruction.js';
+import { ALL_SPECIALTIES, obstructionFor, obstructionTarget } from './obstruction.js';
 import { monthIndex } from './influenceRules.js';
 
 const MONTHS = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
@@ -93,26 +93,50 @@ export function anonymize(text, names = []) {
 }
 
 // Trace par défaut, sans nom ni nom d'action : le nom d'une action du catalogue trahit le niveau
-// de l'influence, que la règle ne révèle pas. Formule neutre pour une action ciblée.
+// de l'influence, que la règle ne révèle pas. Une action ciblée dit ce qu'elle a visé (la « manière »),
+// jamais qui l'a faite ni quel personnage elle visait.
 const NEUTRAL_TRACE = 'Usage de l’influence';
-const TARGETED_TRACE = {
-  Attaque: 'Une influence a été attaquée',
-  Défense: 'Des intérêts ont été protégés',
-  Obstruction: 'Certaines démarches ont été entravées',
-  Soutien: 'Une influence a reçu des appuis',
-};
-export function defaultTrace(act) {
-  if (act?.actionType === 'ciblée') return TARGETED_TRACE[act.actionName] || NEUTRAL_TRACE;
-  return NEUTRAL_TRACE;
+const CATEGORY_NAME = { gotha: 'Gotha', pegre: 'Pègre' };
+const clip = (text, max = 220) => (text.length > max ? `${text.slice(0, max - 3).trimEnd()}…` : text);
+const clean = (text, names) => anonymize(text, names).replace(/\s+/g, ' ').trim();
+
+// `names` absent : version diffusable sans relecture, faite des seuls champs structurés (aucun texte libre du joueur).
+function targetedTrace(act, names) {
+  const free = (text) => (names ? clean(text, names) : '');
+  const cat = (c) => CATEGORY_NAME[c] || CATEGORY_NAME[act.category] || '';
+  switch (act.actionName) {
+    case 'Obstruction': {
+      const t = obstructionTarget(act);
+      if (t.target === 'rumeurs') {
+        return `Obstruction des rumeurs ${cat(t.category)} : ${t.scope === ALL_SPECIALTIES ? 'les 15 domaines' : t.scope}`;
+      }
+      const activity = free(t.text);
+      return activity ? `Obstruction ${cat(t.category)} : ${clip(activity, 160)}` : `Obstruction d’une activité ${cat(t.category)}`;
+    }
+    case 'Soutien': {
+      const supported = free(act.supportedInfluence);
+      return supported ? `Soutien à l’influence ${clip(supported, 120)}` : `Soutien à une influence ${cat()}`;
+    }
+    case 'Attaque': {
+      const target = free(act.targetDescription);
+      return target ? `Attaque contre ${clip(target, 160)}` : `Attaque contre une influence ${cat(act.attackedCategory)}`;
+    }
+    case 'Défense': return `Défense d’une influence ${cat()}`;
+    default: return NEUTRAL_TRACE;
+  }
 }
 
-// Trace préremplie à relire : la description (la manière), noms de personnages masqués, tronquée ;
-// formule neutre de l'action ciblée en tête, sans jamais le nom de l'action.
+export function defaultTrace(act) {
+  return act?.actionType === 'ciblée' ? targetedTrace(act) : NEUTRAL_TRACE;
+}
+
+// Trace préremplie à relire : pour une action ciblée, ce qu'elle a visé, puis la description (la manière),
+// noms de personnages masqués, tronquée.
 export function traceDraft(act, names = []) {
-  const desc = anonymize(act?.description, names).replace(/\s+/g, ' ').trim();
-  if (!desc) return defaultTrace(act);
-  const short = desc.length > 220 ? `${desc.slice(0, 217).trimEnd()}…` : desc;
-  return act?.actionType === 'ciblée' && TARGETED_TRACE[act.actionName] ? `${TARGETED_TRACE[act.actionName]} — ${short}` : short;
+  const desc = clip(clean(act?.description, names));
+  const head = act?.actionType === 'ciblée' ? targetedTrace(act, names) : '';
+  if (!desc) return head || NEUTRAL_TRACE;
+  return head ? `${head} — ${desc}` : desc;
 }
 
 // Une rumeur de conteur vaut comme un usage normal : même catégorie, spécialités (vide = toutes),
@@ -148,7 +172,9 @@ export function buildRumorTable({ rumor, dossier, dossiers = [], seeds = [], ant
   const blockedSpecs = specs.filter(s => obstruction[s].blocked);
   const openSpecs = specs.filter(s => !obstruction[s].blocked);
 
-  const allNames = [...names, ...dossiers.map(d => d.characterName), ...antagonists.map(a => a.name)];
+  // Noms à masquer : personnages, PNJ et lieutenants (atout Parangon).
+  const allNames = [...names, ...dossiers.map(d => d.characterName), ...antagonists.map(a => a.name),
+    ...dossiers.flatMap(d => [d.lieutenant?.name, ...(d.actions || []).map(a => a.lieutenantName)])].filter(Boolean);
   const rows = [];
   const own = provenanceOf(dossier);
   const inPeriod = new Set(months);
