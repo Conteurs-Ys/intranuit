@@ -6,3 +6,7 @@ dist/
 *.log
 .firebaserc
 .DS_Store
+
+# Clés de compte de service Firebase
+*-firebase-adminsdk-*.json
+service-account*.json
