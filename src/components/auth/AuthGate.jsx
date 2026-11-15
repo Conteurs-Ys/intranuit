@@ -97,7 +97,7 @@ export default function AuthGate() {
       } else {
         await signInWithEmailAndPassword(auth, form.email, form.password);
       }
-    } catch (err) { setError(isReset ? 'Envoi impossible. Vérifie l’adresse e-mail ou réessaie plus tard.' : "Accès refusé — " + (err.code || err.message)); }
+    } catch (err) { setError(isReset ? 'Envoi impossible. Vérifie l’adresse e-mail ou réessaie plus tard.' : messageErreur(err)); }
     finally { setLoading(false); }
   };
 
@@ -259,4 +259,21 @@ export default function AuthGate() {
       </div>
     </div>
   );
+}
+
+// Traduit les codes d'erreur Firebase en messages compréhensibles
+function messageErreur(err) {
+  const messages = {
+    'auth/password-does-not-meet-requirements': 'Le mot de passe doit contenir au moins 12 caractères. En sécurité plus c’est long plus c’est bon ! Une phrase de plusieurs mots fonctionne très bien.',
+    'auth/weak-password': 'Le mot de passe doit contenir au moins 12 caractères. En sécurité plus c’est long, plus c’est bon !',
+    'auth/invalid-credential': 'Adresse e-mail ou mot de passe incorrect. Pense à acheter des points de mental sur ta fiche !',
+    'auth/wrong-password': 'Adresse e-mail ou mot de passe incorrect. Pense à acheter des points de mental sur ta fiche !',
+    'auth/user-not-found': 'Adresse e-mail ou mot de passe incorrect. Pense à acheter des points de mental sur ta fiche !',
+    'auth/invalid-email': "Bien essayé, mais l’adresse e-mail n’est pas valide.",
+    'auth/email-already-in-use': 'Un compte existe déjà avec cette adresse. Ou alors les Ravnos t’ont volés ton identité numérique. Essaie de te connecter ou de réinitialiser ton mot de passe.',
+    'auth/too-many-requests': 'Trop de tentatives. Ce n’est plus de la passion mais de la haine ! Réessaie dans quelques minutes.',
+    'auth/network-request-failed': 'Problème de connexion internet. Sans doute la faute des Anarchs. Vérifie ta connexion et réessaie.',
+    'auth/user-disabled': 'Ce compte a été désactivé. Contacte un organisateur.',
+  };
+  return messages[err?.code] || 'Une erreur est survenue. Réessaie ou contacte un organisateur.';
 }
